@@ -9,9 +9,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: - INTERNAL
+
+    // MARK: Properties
+
+    // MARK: Lifecycle methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
     }
+
+    // MARK: Methods
 
 }
