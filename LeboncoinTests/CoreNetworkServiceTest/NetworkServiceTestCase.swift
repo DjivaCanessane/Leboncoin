@@ -34,11 +34,11 @@ class NetworkServiceTestCase: XCTestCase {
     }
 
     func testGetNetworkResponse_ShouldPostSuccessCallback_WithData_WhenSessionDataIsNotNilAndResponseOK() {
-        setUpFakes(data: FakeResponseData.imageData, response: FakeResponseData.responseOK, error: nil)
+        setUpFakes(data: FakeResponseData.dummyData, response: FakeResponseData.responseOK, error: nil)
         // When
         networkServiceFake.getNetworkResponse(with: URL(string: "https://www.leboncoin.fr")!) { result in
             switch result {
-            case .success(let data): XCTAssertEqual(data, FakeResponseData.imageData)
+            case .success(let data): XCTAssertEqual(data, FakeResponseData.dummyData)
             case .failure(let error): XCTFail("Has error: \(error)")
             }
         }

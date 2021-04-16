@@ -11,7 +11,7 @@ typealias Ads = [Ad]
 
 struct Ad {
     let id: Int
-    let creationDate: String
+    let creationDate: Date
     let title: String
     let description: String
     let categoryID: Int
@@ -22,4 +22,23 @@ struct Ad {
     var smallImageData: Data?
     let thumbImageURLString: String?
     var thumbImageData: Data?
+}
+
+extension Ads {
+    /// Arrange the announcements by filtering the urgent ads, then sort them according to creation date
+    mutating func arrangeAds() {
+        var urgentAds: Ads = self.filter { $0.isUrgent }
+        urgentAds.sort { $0.creationDate > $1.creationDate }
+        urgentAds.forEach { urgentAd in
+            self.removeAll { ad -> Bool in
+                ad.id == urgentAd.id
+            }
+        }
+        self.sort { $0.creationDate > $1.creationDate }
+        self = urgentAds + self
+    }
+
+    func filter(categoryID: Int) -> Ads {
+        return self.filter { $0.categoryID == categoryID }
+    }
 }

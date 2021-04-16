@@ -22,31 +22,21 @@ class AdNetworkManager {
         self.adsURLStr = adsURLStr
     }
 
-    /// Returns fetched adsData from the URL
-    func getAdsData(callback: @escaping (Result<AdsData, NetworkError>) -> Void) {
-        guard let adsURL = URL(string: adsURLStr) else {
-            return callback(.failure(.invalidURL))
-        }
-
-        // Try to get data from the adsDataUrl
-        adNetworkService.getNetworkResponse(with: adsURL) { result in
+    /// Returns ads via callback, by fetching adsData from network and parsing them
+    func getAds(callback: @escaping (Result<Ads, NetworkError>) -> Void) {
+        getAdsData { result in
             switch result {
-
-            // In case of failure, we pass the error to AdCollectionViewController callback
-            case .failure(let error): callback(.failure(error))
-
-            // In case of success, we decode the data, then we pass the rate to AdCollectionViewController callback
-            case .success(let data):
-                guard let adsData = try? JSONDecoder().decode(AdsData.self, from: data) else {
-                    return callback(.failure(.canNotDecode))
-                }
-
-                callback(.success(adsData))
+            case .failure(let networkError): callback(.failure(networkError))
+            case .success(let adsData):
+                var ads: Ads = []
+                adsData.forEach { ads.append(self.makeAd(from: $0)) }
+                ads.arrangeAds()
+                callback(.success(ads))
             }
         }
     }
 
-    /// Returns the ad with either its associated smallImage or nil
+    /// Returns ad via callback, with either its associated smallImage or nil
     func getSmallImage(for adsData: AdsData, callback: @escaping (Ads) -> Void) {
 
         // DispatchGroup allows to fetch data asynchronously, and so accelerate the fetching process from the web
@@ -83,7 +73,7 @@ class AdNetworkManager {
         }
     }
 
-    /// Return the ad with either its associated thumbImage or nil
+    /// Returns ad via callback, with either its associated thumbImage or nil
     func getThumbImage(for ad: Ad, callback: @escaping (Ad) -> Void) {
         // Create a clone of ad to allow property modifications
         var adClone: Ad = ad
@@ -111,10 +101,40 @@ class AdNetworkManager {
 
     // MARK: Methods
 
+    /// Returns via callback fetched adsData from the URL
+    private func getAdsData(callback: @escaping (Result<AdsData, NetworkError>) -> Void) {
+        guard let adsURL = URL(string: adsURLStr) else {
+            return callback(.failure(.invalidURL))
+        }
+
+        // Try to get data from the adsDataUrl
+        adNetworkService.getNetworkResponse(with: adsURL) { result in
+            switch result {
+
+            // In case of failure, we pass the error to AdCollectionViewController callback
+            case .failure(let error): callback(.failure(error))
+
+            // In case of success, we decode the data, then we pass the rate to AdCollectionViewController callback
+            case .success(let data):
+                guard let adsData = try? JSONDecoder().decode(AdsData.self, from: data) else {
+                    return callback(.failure(.canNotDecode))
+                }
+
+                callback(.success(adsData))
+            }
+        }
+    }
+
+    private func getAdDate(from adData: AdData) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return dateFormatter.date(from: adData.creationDate) ?? .distantPast
+    }
+
     private func makeAd(from adData: AdData) -> Ad {
         return Ad(
             id: adData.id,
-            creationDate: adData.creationDate,
+            creationDate: getAdDate(from: adData),
             title: adData.title,
             description: adData.description,
             categoryID: adData.categoryID,

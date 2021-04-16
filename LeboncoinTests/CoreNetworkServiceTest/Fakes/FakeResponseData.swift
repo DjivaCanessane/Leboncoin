@@ -12,7 +12,7 @@ class FakeResponseData {
 
     // MARK: - DATA
 
-    static let imageData = "image".data(using: .utf8)!
+    static let dummyData = "dummy".data(using: .utf8)!
 
     static func generateData(for ressource: String) -> Data? {
         let bundle = Bundle(for: FakeResponseData.self)
