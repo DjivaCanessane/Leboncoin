@@ -10,21 +10,31 @@ import XCTest
 
 class AdsTestCase: XCTestCase {
 
-    func testGetAds_WhenGetAdsData_ShouldBeArranged_ByEmmergencyAndCreationDate() {
-        let correctData: Data? = FakeResponseData.generateData(for: "AdsDataForArrangeTest")
-        setUpFakes(data: correctData, response: FakeResponseData.responseOK, error: nil)
+    // MARK: - Ads.filter() tests
+
+    func testAdsfilter_ShouldReturnFilteredAds_ByGivenCategoryID() {
+        let data: Data? = FakeResponseData.generateData(for: "AdsDataForArrangeTest")
+        setUpFakes(data: data, response: FakeResponseData.responseOK, error: nil)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
 
         adNetworkManagerFake.getAds { result in
             switch result {
             case .success(let ads):
                 let filterdAds: Ads = ads.filter(categoryID: 4)
-                filterdAds.forEach {
-                    XCTAssertEqual($0.categoryID, 4)
-                }
+                XCTAssertEqual(filterdAds.count, 3)
+                filterdAds.forEach { XCTAssertEqual($0.categoryID, 4) }
             case .failure(let error): XCTFail("With error: \(error)")
             }
+
+            expectation.fulfill()
         }
+
+        wait(for: [expectation], timeout: 0.01)
     }
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
 
     private var adNetworkManagerFake: AdNetworkManager!
 

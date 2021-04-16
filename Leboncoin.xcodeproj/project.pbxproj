@@ -100,6 +100,15 @@
 			path = AdNetworkManagerTest;
 			sourceTree = "<group>";
 		};
+		181DE832262A489700C6A4F9 /* AdTestCase */ = {
+			isa = PBXGroup;
+			children = (
+				189A857E262A1279001A0968 /* AdsTestCase.swift */,
+				189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */,
+			);
+			path = AdTestCase;
+			sourceTree = "<group>";
+		};
 		187555562626177200D1CD7E = {
 			isa = PBXGroup;
 			children = (
@@ -133,7 +142,7 @@
 		187555782626177800D1CD7E /* LeboncoinTests */ = {
 			isa = PBXGroup;
 			children = (
-				189A857E262A1279001A0968 /* AdsTestCase.swift */,
+				181DE832262A489700C6A4F9 /* AdTestCase */,
 				18156F1826277BAD00107CDE /* AdNetworkManagerTest */,
 				18156F1726277B7700107CDE /* CoreNetworkServiceTest */,
 				1875557B2626177800D1CD7E /* Info.plist */,
@@ -218,7 +227,6 @@
 				18156F38262854FD00107CDE /* CompleteAdData.json */,
 				18156F2C2627859000107CDE /* UndecodableAdsData.json */,
 				189A85762629E64A001A0968 /* AdDataWithWrongFormatDate.json */,
-				189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";

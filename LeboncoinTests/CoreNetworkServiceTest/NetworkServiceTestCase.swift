@@ -11,7 +11,7 @@ import XCTest
 class NetworkServiceTestCase: XCTestCase {
     var networkServiceFake: NetworkService!
 
-    // MARK: - Tests
+    // MARK: - getNetworkResponse() tests
 
     func testGetNetworkResponse_ShouldPostFailedCallback_WithHasError_WhenSessionErrorIsNotNil() {
         setUpFakes(data: nil, response: nil, error: FakeResponseData.error)
@@ -35,16 +35,21 @@ class NetworkServiceTestCase: XCTestCase {
 
     func testGetNetworkResponse_ShouldPostSuccessCallback_WithData_WhenSessionDataIsNotNilAndResponseOK() {
         setUpFakes(data: FakeResponseData.dummyData, response: FakeResponseData.responseOK, error: nil)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
         // When
         networkServiceFake.getNetworkResponse(with: URL(string: "https://www.leboncoin.fr")!) { result in
             switch result {
             case .success(let data): XCTAssertEqual(data, FakeResponseData.dummyData)
             case .failure(let error): XCTFail("Has error: \(error)")
             }
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 0.01)
     }
 
-    // MARK: - PRIVATE FUNCTIONS
+    // MARK: - PRIVATE
+
+    // MARK: Methods
 
     private func setUpFakes(data: Data?, response: HTTPURLResponse?, error: Error?) {
         // Given
@@ -54,11 +59,14 @@ class NetworkServiceTestCase: XCTestCase {
     }
     private func shouldGet(expectedError: NetworkError) {
         // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
         networkServiceFake.getNetworkResponse(with: URL(string: "https://www.leboncoin.fr")!) { result in
             switch result {
             case .success(let data): XCTFail("No error, get: \(data)")
             case .failure(let error): XCTAssertEqual(error, expectedError)
             }
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 0.01)
     }
 }
