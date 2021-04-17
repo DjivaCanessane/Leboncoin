@@ -8,39 +8,23 @@
 import XCTest
 @testable import Leboncoin
 
-class AdNetworkManagerTestCase: XCTestCase {
+// MARK: - getAds() tests
 
-    // MARK: - getAds() tests
-
+extension AdNetworkManagerTestCase {
     func testGetAds_WhenSessionGotError_ShouldPostFailedCallback_WithNetworkError() {
         setUpFakes(data: nil, response: nil, error: FakeResponseData.error)
-        shouldGet(expectedError: .hasError)
+        shouldGet(error: .hasError, for: adNetworkManagerFake.getAds)
+    }
+
+    func testGetAds_WhenCanNotMakeURLFromURLStr_ShouldReturnFailedCallback_WithInvalidURLError() {
+        setUpFakes(data: nil, response: nil, error: nil, adsURLStr: "")
+        shouldGet(error: .invalidURL, for: adNetworkManagerFake.getAds)
     }
 
     func testGetAds_WhenDataIsWrongFormat_ShouldNotDecodeJsonAndRetrunFailedCallback_WithError() {
         let wrongFormatData: Data? = FakeResponseData.generateData(for: "UndecodableAdsData")
         setUpFakes(data: wrongFormatData, response: FakeResponseData.responseOK, error: nil)
-        shouldGet(expectedError: .canNotDecode)
-    }
-
-    func testGetAds_WhenCanNotMakeURLFromURLStr_ShouldReturnFailedCallback_WithInvalidURLError() {
-        setUpFakes(data: nil, response: nil, error: nil, adsURLStr: "")
-        shouldGet(expectedError: .invalidURL)
-    }
-
-    func testGetAds_WhenSessionHasDataAndResponseOK_ShouldPostSuccessCallback_WithAd() {
-        let correctData: Data? = FakeResponseData.generateData(for: "CompleteAdData")
-        setUpFakes(data: correctData, response: FakeResponseData.responseOK, error: nil)
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
-
-        adNetworkManagerFake.getAds { result in
-            switch result {
-            case .success(let ads): self.isAdPropertiesConformToExpectation(ad: ads[0])
-            case .failure(let error): XCTFail("With error: \(error)")
-            }
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 0.01)
+        shouldGet(error: .canNotDecode, for: adNetworkManagerFake.getAds)
     }
 
     func testGetAds_WhenSessionHasData_ButAdDataDateIsWrongFormat_ShouldPostSuccessCallback_WithAdDatedByDistantPast() {
@@ -86,9 +70,11 @@ class AdNetworkManagerTestCase: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
+}
 
-    // MARK: - getSmallImage() tests
+// MARK: - getSmallImage() tests
 
+extension AdNetworkManagerTestCase {
     func testGetSmallImage_WhenAdDataHasNotSmallImageURL_ShouldReturnAd_WithoutSmallImageData() {
         setUpFakes(data: nil, response: nil, error: nil)
         let adDataWithoutSmallImageURL: AdData = makeAdData(with: nil)
@@ -140,9 +126,51 @@ class AdNetworkManagerTestCase: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
+}
 
-    // MARK: - getThumbImage() tests
+// MARK: - getAdCategories() tests
 
+extension AdNetworkManagerTestCase {
+    func testGetAdCategories_WhenSessionGotError_ShouldPostFailedCallback_WithNetworkError() {
+        setUpFakes(data: nil, response: nil, error: FakeResponseData.error)
+        shouldGet(error: .hasError, for: adNetworkManagerFake.getAdCategories)
+    }
+
+    func testGetAdCategories_WhenCanNotMakeURLFromURLStr_ShouldReturnFailedCallback_WithInvalidURLError() {
+        setUpFakes(data: nil, response: nil, error: nil, adCategoriesURLStr: "")
+        shouldGet(error: .invalidURL, for: adNetworkManagerFake.getAdCategories)
+    }
+
+    func testGetAdCategories_WhenDataIsWrongFormat_ShouldNotDecodeJsonAndRetrunFailedCallback_WithError() {
+        let wrongFormatData: Data? = FakeResponseData.generateData(for: "UndecodableAdsData")
+        setUpFakes(data: wrongFormatData, response: FakeResponseData.responseOK, error: nil)
+        shouldGet(error: .canNotDecode, for: adNetworkManagerFake.getAdCategories)
+    }
+
+    func testGetAdCategories_WhenSessionHasDataAndResponseOK_ShouldPostSuccessCallback_WithAdCategories() {
+        let correctData: Data? = FakeResponseData.generateData(for: "AdCategories")
+        setUpFakes(data: correctData, response: FakeResponseData.responseOK, error: nil)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+
+        adNetworkManagerFake.getAdCategories { result in
+            switch result {
+            case .success(let adCategories):
+                XCTAssertEqual(adCategories[0].id, 1)
+                XCTAssertEqual(adCategories[0].name, "Véhicule")
+
+                XCTAssertEqual(adCategories[1].id, 2)
+                XCTAssertEqual(adCategories[1].name, "Mode")
+            case .failure(let error): XCTFail("With error: \(error)")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+}
+
+// MARK: - getThumbImage() tests
+
+extension AdNetworkManagerTestCase {
     func testGetThumbImage_WhenThumbImageURLStrIsNil_ShouldReturnAdWithoutThumbImageData() {
         setUpFakes(data: nil, response: nil, error: nil)
         let adWithoutThumbImageURL: Ad = makeAd(with: nil)
@@ -194,8 +222,11 @@ class AdNetworkManagerTestCase: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
+}
 
-    // MARK: - PRIVATE
+// MARK: - PRIVATE
+
+class AdNetworkManagerTestCase: XCTestCase {
 
     // MARK: Properties
 
@@ -227,16 +258,24 @@ class AdNetworkManagerTestCase: XCTestCase {
         data: Data?,
         response: HTTPURLResponse?,
         error: Error?,
-        adsURLStr: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master/listing.json"
+        adsURLStr: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master/listing.json",
+        adCategoriesURLStr: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master/categories.json"
     ) {
         let urlSessionFake: URLSessionFake = URLSessionFake(data: data, response: response, error: error)
         let networkServiceFake: NetworkService! = NetworkService(networkSession: urlSessionFake)
-        adNetworkManagerFake = AdNetworkManager(adNetworkService: networkServiceFake, adsURLStr: adsURLStr)
+        adNetworkManagerFake = AdNetworkManager(
+            adNetworkService: networkServiceFake,
+            adsURLStr: adsURLStr,
+            adCategoriesURLStr: adCategoriesURLStr
+        )
     }
 
-    private func shouldGet(expectedError: NetworkError) {
+    private func shouldGet<T: Codable>(
+        error expectedError: NetworkError,
+        for methodToTest: (@escaping (Result<T, NetworkError>) -> Void) -> Void
+    ) {
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        adNetworkManagerFake.getAds { result in
+        methodToTest { result in
             switch result {
             case .success(let data): XCTFail("No error, get: \(data)")
             case .failure(let error): XCTAssertEqual(error, expectedError)

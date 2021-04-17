@@ -9,7 +9,7 @@ import Foundation
 
 typealias Ads = [Ad]
 
-struct Ad {
+struct Ad: Codable {
     let id: Int
     let creationDate: Date
     let title: String

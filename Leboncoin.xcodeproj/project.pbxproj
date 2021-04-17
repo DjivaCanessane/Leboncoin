@@ -10,9 +10,10 @@
 		18156F29262783F300107CDE /* AdNetworkManagerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18156F28262783F300107CDE /* AdNetworkManagerTestCase.swift */; };
 		18156F2D2627859000107CDE /* UndecodableAdsData.json in Resources */ = {isa = PBXBuildFile; fileRef = 18156F2C2627859000107CDE /* UndecodableAdsData.json */; };
 		18156F39262854FE00107CDE /* CompleteAdData.json in Resources */ = {isa = PBXBuildFile; fileRef = 18156F38262854FD00107CDE /* CompleteAdData.json */; };
+		181DE84D262B036100C6A4F9 /* AdCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DE84C262B036100C6A4F9 /* AdCategory.swift */; };
 		187555632626177200D1CD7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555622626177200D1CD7E /* AppDelegate.swift */; };
 		187555652626177200D1CD7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555642626177200D1CD7E /* SceneDelegate.swift */; };
-		187555672626177200D1CD7E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555662626177200D1CD7E /* ViewController.swift */; };
+		187555672626177200D1CD7E /* AdCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555662626177200D1CD7E /* AdCollectionViewController.swift */; };
 		1875556C2626177700D1CD7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1875556B2626177700D1CD7E /* Assets.xcassets */; };
 		1875556F2626177700D1CD7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1875556D2626177700D1CD7E /* LaunchScreen.storyboard */; };
 		187555A626261AA400D1CD7E /* AdData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555A526261AA400D1CD7E /* AdData.swift */; };
@@ -23,6 +24,7 @@
 		187555CE26261F8B00D1CD7E /* FakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555CD26261F8B00D1CD7E /* FakeResponseData.swift */; };
 		187555D62626242800D1CD7E /* AdNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555D52626242800D1CD7E /* AdNetworkManager.swift */; };
 		187555DE262627FD00D1CD7E /* Ad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555DD262627FD00D1CD7E /* Ad.swift */; };
+		188682B3262B0F0500FCF95E /* AdCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = 188682B2262B0F0400FCF95E /* AdCategories.json */; };
 		189A85772629E64A001A0968 /* AdDataWithWrongFormatDate.json in Resources */ = {isa = PBXBuildFile; fileRef = 189A85762629E64A001A0968 /* AdDataWithWrongFormatDate.json */; };
 		189A857B262A07F8001A0968 /* AdsDataForArrangeTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */; };
 		189A857F262A1279001A0968 /* AdsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189A857E262A1279001A0968 /* AdsTestCase.swift */; };
@@ -42,10 +44,11 @@
 		18156F28262783F300107CDE /* AdNetworkManagerTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdNetworkManagerTestCase.swift; sourceTree = "<group>"; };
 		18156F2C2627859000107CDE /* UndecodableAdsData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UndecodableAdsData.json; sourceTree = "<group>"; };
 		18156F38262854FD00107CDE /* CompleteAdData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CompleteAdData.json; sourceTree = "<group>"; };
+		181DE84C262B036100C6A4F9 /* AdCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCategory.swift; sourceTree = "<group>"; };
 		1875555F2626177200D1CD7E /* Leboncoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leboncoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		187555622626177200D1CD7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		187555642626177200D1CD7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		187555662626177200D1CD7E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		187555662626177200D1CD7E /* AdCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCollectionViewController.swift; sourceTree = "<group>"; };
 		1875556B2626177700D1CD7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1875556E2626177700D1CD7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		187555702626177700D1CD7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -59,6 +62,7 @@
 		187555CD26261F8B00D1CD7E /* FakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseData.swift; sourceTree = "<group>"; };
 		187555D52626242800D1CD7E /* AdNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdNetworkManager.swift; sourceTree = "<group>"; };
 		187555DD262627FD00D1CD7E /* Ad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ad.swift; sourceTree = "<group>"; };
+		188682B2262B0F0400FCF95E /* AdCategories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AdCategories.json; sourceTree = "<group>"; };
 		189A85762629E64A001A0968 /* AdDataWithWrongFormatDate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AdDataWithWrongFormatDate.json; sourceTree = "<group>"; };
 		189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AdsDataForArrangeTest.json; sourceTree = "<group>"; };
 		189A857E262A1279001A0968 /* AdsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsTestCase.swift; sourceTree = "<group>"; };
@@ -107,6 +111,28 @@
 				189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */,
 			);
 			path = AdTestCase;
+			sourceTree = "<group>";
+		};
+		181DE83D262A548E00C6A4F9 /* AdsCollectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				187555662626177200D1CD7E /* AdCollectionViewController.swift */,
+			);
+			path = AdsCollectionViewController;
+			sourceTree = "<group>";
+		};
+		181DE83E262A54A500C6A4F9 /* FilterdAdsTableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FilterdAdsTableView;
+			sourceTree = "<group>";
+		};
+		181DE83F262A54C000C6A4F9 /* AdDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AdDetailViewController;
 			sourceTree = "<group>";
 		};
 		187555562626177200D1CD7E = {
@@ -165,7 +191,9 @@
 		18755599262617FD00D1CD7E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				187555662626177200D1CD7E /* ViewController.swift */,
+				181DE83D262A548E00C6A4F9 /* AdsCollectionViewController */,
+				181DE83E262A54A500C6A4F9 /* FilterdAdsTableView */,
+				181DE83F262A54C000C6A4F9 /* AdDetailViewController */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -182,6 +210,7 @@
 			children = (
 				187555A526261AA400D1CD7E /* AdData.swift */,
 				187555DD262627FD00D1CD7E /* Ad.swift */,
+				181DE84C262B036100C6A4F9 /* AdCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -227,6 +256,7 @@
 				18156F38262854FD00107CDE /* CompleteAdData.json */,
 				18156F2C2627859000107CDE /* UndecodableAdsData.json */,
 				189A85762629E64A001A0968 /* AdDataWithWrongFormatDate.json */,
+				188682B2262B0F0400FCF95E /* AdCategories.json */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -321,6 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188682B3262B0F0500FCF95E /* AdCategories.json in Resources */,
 				18156F2D2627859000107CDE /* UndecodableAdsData.json in Resources */,
 				189A85772629E64A001A0968 /* AdDataWithWrongFormatDate.json in Resources */,
 				18156F39262854FE00107CDE /* CompleteAdData.json in Resources */,
@@ -356,13 +387,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				187555B626261D0C00D1CD7E /* NetworkService.swift in Sources */,
-				187555672626177200D1CD7E /* ViewController.swift in Sources */,
+				187555672626177200D1CD7E /* AdCollectionViewController.swift in Sources */,
 				187555A626261AA400D1CD7E /* AdData.swift in Sources */,
 				187555BC26261D2C00D1CD7E /* NetworkError.swift in Sources */,
 				187555DE262627FD00D1CD7E /* Ad.swift in Sources */,
 				187555632626177200D1CD7E /* AppDelegate.swift in Sources */,
 				187555652626177200D1CD7E /* SceneDelegate.swift in Sources */,
 				187555D62626242800D1CD7E /* AdNetworkManager.swift in Sources */,
+				181DE84D262B036100C6A4F9 /* AdCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

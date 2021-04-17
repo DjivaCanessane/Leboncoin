@@ -16,10 +16,12 @@ class AdNetworkManager {
     /// Init for dependency injection in order to test this class
     init(
         adNetworkService: NetworkService = NetworkService(),
-        adsURLStr: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master/listing.json"
+        adsURLStr: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master/listing.json",
+        adCategoriesURLStr: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master/categories.json"
     ) {
         self.adNetworkService = adNetworkService
         self.adsURLStr = adsURLStr
+        self.adCategoriesURLStr = adCategoriesURLStr
     }
 
     /// Returns ads via callback, by fetching adsData from network and parsing them
@@ -73,6 +75,30 @@ class AdNetworkManager {
         }
     }
 
+    /// Returns via callback categories string according to Ad.categoryIDs
+    func getAdCategories(callback: @escaping (Result<AdCategories, NetworkError>) -> Void) {
+        guard let adCategoriesURL = URL(string: adCategoriesURLStr) else {
+            return callback(.failure(.invalidURL))
+        }
+
+        // Try to get data from the categoriesURL
+        adNetworkService.getNetworkResponse(with: adCategoriesURL) { result in
+            switch result {
+
+            // In case of failure, we pass the error to AdCollectionViewController callback
+            case .failure(let error): callback(.failure(error))
+
+            // In case of success, we decode the data, then we pass the rate to AdCollectionViewController callback
+            case .success(let data):
+                guard let adCategories = try? JSONDecoder().decode(AdCategories.self, from: data) else {
+                    return callback(.failure(.canNotDecode))
+                }
+
+                callback(.success(adCategories))
+            }
+        }
+    }
+
     /// Returns ad via callback, with either its associated thumbImage or nil
     func getThumbImage(for ad: Ad, callback: @escaping (Ad) -> Void) {
         // Create a clone of ad to allow property modifications
@@ -98,6 +124,7 @@ class AdNetworkManager {
 
     private var adNetworkService: NetworkService = NetworkService()
     private var adsURLStr: String
+    private var adCategoriesURLStr: String
 
     // MARK: Methods
 
@@ -107,7 +134,7 @@ class AdNetworkManager {
             return callback(.failure(.invalidURL))
         }
 
-        // Try to get data from the adsDataUrl
+        // Try to get data from the adsDataURL
         adNetworkService.getNetworkResponse(with: adsURL) { result in
             switch result {
 
