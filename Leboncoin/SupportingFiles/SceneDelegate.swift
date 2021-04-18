@@ -19,7 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = AdCollectionViewController()
+        let adCollectionViewController: AdCollectionViewController = AdCollectionViewController()
+        let navigationController: UINavigationController = UINavigationController(rootViewController: adCollectionViewController)
+
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

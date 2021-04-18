@@ -25,19 +25,25 @@ struct Ad: Codable {
 }
 
 extension Ads {
-    /// Arrange the announcements by filtering the urgent ads, then sort them according to creation date
-    mutating func arrangeAds() {
+    /// Return ads arranged by filtering the urgent ads, then sort them according to creation date
+    func arrangeAds() -> Ads {
+        var ads: Ads = self
+
+        // Filter ads according to isUregent, then sort them by creationDate
         var urgentAds: Ads = self.filter { $0.isUrgent }
         urgentAds.sort { $0.creationDate > $1.creationDate }
         urgentAds.forEach { urgentAd in
-            self.removeAll { ad -> Bool in
+            ads.removeAll { ad -> Bool in
                 ad.id == urgentAd.id
             }
         }
-        self.sort { $0.creationDate > $1.creationDate }
-        self = urgentAds + self
+
+        ads.sort { $0.creationDate > $1.creationDate }
+        let arrangedAds: Ads = urgentAds + ads
+        return arrangedAds
     }
 
+    /// Return ads, filtered by categoryID
     func filter(categoryID: Int) -> Ads {
         return self.filter { $0.categoryID == categoryID }
     }

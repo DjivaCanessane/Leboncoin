@@ -128,38 +128,35 @@ extension AdNetworkManagerTestCase {
     }
 }
 
-// MARK: - getAdCategories() tests
+// MARK: - getAdCategoriesDict() tests
 
 extension AdNetworkManagerTestCase {
-    func testGetAdCategories_WhenSessionGotError_ShouldPostFailedCallback_WithNetworkError() {
+    func testGetAdCategoriesDict_WhenSessionGotError_ShouldPostFailedCallback_WithNetworkError() {
         setUpFakes(data: nil, response: nil, error: FakeResponseData.error)
-        shouldGet(error: .hasError, for: adNetworkManagerFake.getAdCategories)
+        shouldGet(error: .hasError, for: adNetworkManagerFake.getAdCategoriesDict)
     }
 
-    func testGetAdCategories_WhenCanNotMakeURLFromURLStr_ShouldReturnFailedCallback_WithInvalidURLError() {
+    func testGetAdCategoriesDict_WhenCanNotMakeURLFromURLStr_ShouldReturnFailedCallback_WithInvalidURLError() {
         setUpFakes(data: nil, response: nil, error: nil, adCategoriesURLStr: "")
-        shouldGet(error: .invalidURL, for: adNetworkManagerFake.getAdCategories)
+        shouldGet(error: .invalidURL, for: adNetworkManagerFake.getAdCategoriesDict)
     }
 
-    func testGetAdCategories_WhenDataIsWrongFormat_ShouldNotDecodeJsonAndRetrunFailedCallback_WithError() {
+    func testGetAdCategoriesDict_WhenDataIsWrongFormat_ShouldNotDecodeJsonAndRetrunFailedCallback_WithError() {
         let wrongFormatData: Data? = FakeResponseData.generateData(for: "UndecodableAdsData")
         setUpFakes(data: wrongFormatData, response: FakeResponseData.responseOK, error: nil)
-        shouldGet(error: .canNotDecode, for: adNetworkManagerFake.getAdCategories)
+        shouldGet(error: .canNotDecode, for: adNetworkManagerFake.getAdCategoriesDict)
     }
 
-    func testGetAdCategories_WhenSessionHasDataAndResponseOK_ShouldPostSuccessCallback_WithAdCategories() {
+    func testGetAdCategoriesDict_WhenSessionHasDataAndResponseOK_ShouldPostSuccessCallback_WithAdCategories() {
         let correctData: Data? = FakeResponseData.generateData(for: "AdCategories")
         setUpFakes(data: correctData, response: FakeResponseData.responseOK, error: nil)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getAdCategories { result in
+        adNetworkManagerFake.getAdCategoriesDict { result in
             switch result {
-            case .success(let adCategories):
-                XCTAssertEqual(adCategories[0].id, 1)
-                XCTAssertEqual(adCategories[0].name, "Véhicule")
-
-                XCTAssertEqual(adCategories[1].id, 2)
-                XCTAssertEqual(adCategories[1].name, "Mode")
+            case .success(let adCategoriesDict):
+                XCTAssertEqual(adCategoriesDict[1], "Véhicule")
+                XCTAssertEqual(adCategoriesDict[2], "Mode")
             case .failure(let error): XCTFail("With error: \(error)")
             }
             expectation.fulfill()

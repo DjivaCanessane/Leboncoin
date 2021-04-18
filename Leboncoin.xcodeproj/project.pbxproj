@@ -25,6 +25,11 @@
 		187555D62626242800D1CD7E /* AdNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555D52626242800D1CD7E /* AdNetworkManager.swift */; };
 		187555DE262627FD00D1CD7E /* Ad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187555DD262627FD00D1CD7E /* Ad.swift */; };
 		188682B3262B0F0500FCF95E /* AdCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = 188682B2262B0F0400FCF95E /* AdCategories.json */; };
+		188682BE262B1AFB00FCF95E /* AdCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188682BD262B1AFB00FCF95E /* AdCollectionViewCell.swift */; };
+		188682D4262B77F800FCF95E /* AdCategoryFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188682D3262B77F800FCF95E /* AdCategoryFilterViewController.swift */; };
+		188682DA262B8B9E00FCF95E /* FilteredAdTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188682D9262B8B9E00FCF95E /* FilteredAdTableViewController.swift */; };
+		188682DE262B997900FCF95E /* AdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188682DD262B997900FCF95E /* AdDetailViewController.swift */; };
+		188682E3262C68E600FCF95E /* AdDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188682E2262C68E600FCF95E /* AdDetailSection.swift */; };
 		189A85772629E64A001A0968 /* AdDataWithWrongFormatDate.json in Resources */ = {isa = PBXBuildFile; fileRef = 189A85762629E64A001A0968 /* AdDataWithWrongFormatDate.json */; };
 		189A857B262A07F8001A0968 /* AdsDataForArrangeTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */; };
 		189A857F262A1279001A0968 /* AdsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189A857E262A1279001A0968 /* AdsTestCase.swift */; };
@@ -63,6 +68,11 @@
 		187555D52626242800D1CD7E /* AdNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdNetworkManager.swift; sourceTree = "<group>"; };
 		187555DD262627FD00D1CD7E /* Ad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ad.swift; sourceTree = "<group>"; };
 		188682B2262B0F0400FCF95E /* AdCategories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AdCategories.json; sourceTree = "<group>"; };
+		188682BD262B1AFB00FCF95E /* AdCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCollectionViewCell.swift; sourceTree = "<group>"; };
+		188682D3262B77F800FCF95E /* AdCategoryFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCategoryFilterViewController.swift; sourceTree = "<group>"; };
+		188682D9262B8B9E00FCF95E /* FilteredAdTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredAdTableViewController.swift; sourceTree = "<group>"; };
+		188682DD262B997900FCF95E /* AdDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailViewController.swift; sourceTree = "<group>"; };
+		188682E2262C68E600FCF95E /* AdDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailSection.swift; sourceTree = "<group>"; };
 		189A85762629E64A001A0968 /* AdDataWithWrongFormatDate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AdDataWithWrongFormatDate.json; sourceTree = "<group>"; };
 		189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AdsDataForArrangeTest.json; sourceTree = "<group>"; };
 		189A857E262A1279001A0968 /* AdsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsTestCase.swift; sourceTree = "<group>"; };
@@ -117,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				187555662626177200D1CD7E /* AdCollectionViewController.swift */,
+				188682D3262B77F800FCF95E /* AdCategoryFilterViewController.swift */,
 			);
 			path = AdsCollectionViewController;
 			sourceTree = "<group>";
@@ -124,6 +135,7 @@
 		181DE83E262A54A500C6A4F9 /* FilterdAdsTableView */ = {
 			isa = PBXGroup;
 			children = (
+				188682D9262B8B9E00FCF95E /* FilteredAdTableViewController.swift */,
 			);
 			path = FilterdAdsTableView;
 			sourceTree = "<group>";
@@ -131,6 +143,7 @@
 		181DE83F262A54C000C6A4F9 /* AdDetailViewController */ = {
 			isa = PBXGroup;
 			children = (
+				188682DD262B997900FCF95E /* AdDetailViewController.swift */,
 			);
 			path = AdDetailViewController;
 			sourceTree = "<group>";
@@ -201,6 +214,7 @@
 		1875559A2626180400D1CD7E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				188682BC262B1AB200FCF95E /* AdCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,6 +225,7 @@
 				187555A526261AA400D1CD7E /* AdData.swift */,
 				187555DD262627FD00D1CD7E /* Ad.swift */,
 				181DE84C262B036100C6A4F9 /* AdCategory.swift */,
+				188682E2262C68E600FCF95E /* AdDetailSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -248,6 +263,14 @@
 				187555D52626242800D1CD7E /* AdNetworkManager.swift */,
 			);
 			path = Ad;
+			sourceTree = "<group>";
+		};
+		188682BC262B1AB200FCF95E /* AdCell */ = {
+			isa = PBXGroup;
+			children = (
+				188682BD262B1AFB00FCF95E /* AdCollectionViewCell.swift */,
+			);
+			path = AdCell;
 			sourceTree = "<group>";
 		};
 		189EF9622628E9E60046129A /* JSON */ = {
@@ -392,7 +415,12 @@
 				187555BC26261D2C00D1CD7E /* NetworkError.swift in Sources */,
 				187555DE262627FD00D1CD7E /* Ad.swift in Sources */,
 				187555632626177200D1CD7E /* AppDelegate.swift in Sources */,
+				188682DE262B997900FCF95E /* AdDetailViewController.swift in Sources */,
 				187555652626177200D1CD7E /* SceneDelegate.swift in Sources */,
+				188682D4262B77F800FCF95E /* AdCategoryFilterViewController.swift in Sources */,
+				188682BE262B1AFB00FCF95E /* AdCollectionViewCell.swift in Sources */,
+				188682DA262B8B9E00FCF95E /* FilteredAdTableViewController.swift in Sources */,
+				188682E3262C68E600FCF95E /* AdDetailSection.swift in Sources */,
 				187555D62626242800D1CD7E /* AdNetworkManager.swift in Sources */,
 				181DE84D262B036100C6A4F9 /* AdCategory.swift in Sources */,
 			);

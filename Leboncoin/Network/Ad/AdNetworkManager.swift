@@ -8,6 +8,7 @@
 import Foundation
 
 class AdNetworkManager {
+    static let shared: AdNetworkManager = AdNetworkManager()
 
     // MARK: - INTERNAL
 
@@ -29,11 +30,7 @@ class AdNetworkManager {
         getAdsData { result in
             switch result {
             case .failure(let networkError): callback(.failure(networkError))
-            case .success(let adsData):
-                var ads: Ads = []
-                adsData.forEach { ads.append(self.makeAd(from: $0)) }
-                ads.arrangeAds()
-                callback(.success(ads))
+            case .success(let adsData): self.getSmallImage(for: adsData) { callback(.success($0.arrangeAds())) }
             }
         }
     }
@@ -76,7 +73,7 @@ class AdNetworkManager {
     }
 
     /// Returns via callback categories string according to Ad.categoryIDs
-    func getAdCategories(callback: @escaping (Result<AdCategories, NetworkError>) -> Void) {
+    func getAdCategoriesDict(callback: @escaping (Result<AdCategoriesDict, NetworkError>) -> Void) {
         guard let adCategoriesURL = URL(string: adCategoriesURLStr) else {
             return callback(.failure(.invalidURL))
         }
@@ -94,26 +91,23 @@ class AdNetworkManager {
                     return callback(.failure(.canNotDecode))
                 }
 
-                callback(.success(adCategories))
+                callback(.success(adCategories.getAdCategoriesDictionary()))
             }
         }
     }
 
     /// Returns ad via callback, with either its associated thumbImage or nil
-    func getThumbImage(for ad: Ad, callback: @escaping (Ad) -> Void) {
-        // Create a clone of ad to allow property modifications
-        var adClone: Ad = ad
+    func getThumbImage(for ad: Ad, callback: @escaping (Data?) -> Void) {
         // Check if adData has thumbImageURLStr to fetch an image, else we return ad without smallImage
-        guard let thumbImageURLStr = ad.thumbImageURLString else { return callback(adClone) }
-        guard let thumbImageURL: URL = URL(string: thumbImageURLStr) else { return callback(adClone) }
+        guard let thumbImageURLStr = ad.thumbImageURLString else { return callback(nil) }
+        guard let thumbImageURL: URL = URL(string: thumbImageURLStr) else { return callback(nil) }
 
         adNetworkService.getNetworkResponse(with: thumbImageURL) { result in
             switch result {
             case .success(let thumbImageData):
-                adClone.thumbImageData = thumbImageData
-                callback(adClone)
+                callback(thumbImageData)
             case .failure:
-                callback(adClone)
+                callback(nil)
             }
         }
     }

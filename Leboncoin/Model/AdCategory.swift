@@ -8,8 +8,17 @@
 import Foundation
 
 typealias AdCategories = [AdCategory]
+typealias AdCategoriesDict = [Int: String]
 
 struct AdCategory: Codable {
     let id: Int
     let name: String
+}
+
+extension AdCategories {
+    func getAdCategoriesDictionary() -> AdCategoriesDict {
+        self.reduce(into: [:]) { dictionary, adCategory in
+            dictionary[adCategory.id] = adCategory.name
+        }
+    }
 }
