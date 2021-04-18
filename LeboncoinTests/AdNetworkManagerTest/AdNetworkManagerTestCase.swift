@@ -170,11 +170,12 @@ extension AdNetworkManagerTestCase {
 extension AdNetworkManagerTestCase {
     func testGetThumbImage_WhenThumbImageURLStrIsNil_ShouldReturnAdWithoutThumbImageData() {
         setUpFakes(data: nil, response: nil, error: nil)
-        let adWithoutThumbImageURL: Ad = makeAd(with: nil)
+        var adWithoutThumbImageURL: Ad = makeAd(with: nil)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { ad in
-            self.isAdPropertiesConformToExpectation(ad: ad)
+        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { thumbImageData in
+            adWithoutThumbImageURL.thumbImageData = thumbImageData
+            self.isAdPropertiesConformToExpectation(ad: adWithoutThumbImageURL)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
@@ -182,11 +183,12 @@ extension AdNetworkManagerTestCase {
 
     func testGetThumbImage_WhenThumbImageURLStrIsEmpty_ShouldReturnAdWithoutThumbImageData() {
         setUpFakes(data: nil, response: nil, error: nil)
-        let adWithoutThumbImageURL: Ad = makeAd(with: "")
+        var adWithoutThumbImageURL: Ad = makeAd(with: "")
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { ad in
-            self.isAdPropertiesConformToExpectation(ad: ad, expectedThumbImageURL: "")
+        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { thumbImageData in
+            adWithoutThumbImageURL.thumbImageData = thumbImageData
+            self.isAdPropertiesConformToExpectation(ad: adWithoutThumbImageURL, expectedThumbImageURL: "")
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
@@ -194,11 +196,15 @@ extension AdNetworkManagerTestCase {
 
     func testGetThumbImage_WhenThumbImageURLIsInvalid_ShouldReturnAdWithoutThumbImageData() {
         setUpFakes(data: nil, response: FakeResponseData.responseKO, error: nil)
-        let adWithoutThumbImageURL: Ad = makeAd(with: thumbImageURLStr)
+        var adWithoutThumbImageURL: Ad = makeAd(with: thumbImageURLStr)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { ad in
-            self.isAdPropertiesConformToExpectation(ad: ad, expectedThumbImageURL: self.thumbImageURLStr)
+        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { thumbImageData in
+            adWithoutThumbImageURL.thumbImageData = thumbImageData
+            self.isAdPropertiesConformToExpectation(
+                ad: adWithoutThumbImageURL,
+                expectedThumbImageURL: self.thumbImageURLStr
+            )
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
@@ -206,12 +212,13 @@ extension AdNetworkManagerTestCase {
 
     func testGetThumbImage_WhenAdHasValidThumbImageURL_ShouldReturnAdWithThumbImageData() {
         setUpFakes(data: FakeResponseData.dummyData, response: FakeResponseData.responseOK, error: nil)
-        let adWithoutThumbImageURL: Ad = makeAd(with: thumbImageURLStr)
+        var adWithoutThumbImageURL: Ad = makeAd(with: thumbImageURLStr)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { [self] ad in
+        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { [self] thumbImageData in
+            adWithoutThumbImageURL.thumbImageData = thumbImageData
             isAdPropertiesConformToExpectation(
-                ad: ad,
+                ad: adWithoutThumbImageURL,
                 expectedThumbImageURL: thumbImageURLStr,
                 expectedThumbImageData: FakeResponseData.dummyData
             )

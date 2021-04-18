@@ -72,7 +72,7 @@ extension AdDetailViewController: UITableViewDataSource {
         guard let adDetailSection = AdDetailSection(rawValue: indexPath.section) else { return .zero }
 
         switch adDetailSection {
-        case .thumbImage: return 320
+        case .thumbImage: return view.bounds.width
         case .essantialsDetails: return 160
         case .category: return 30
         case .description: return 100
@@ -161,7 +161,7 @@ class AdDetailViewController: UIViewController {
             thumbImageView.leadingAnchor.constraint(equalTo: tableViewCell.contentView.leadingAnchor),
             thumbImageView.trailingAnchor.constraint(equalTo: tableViewCell.contentView.trailingAnchor),
             thumbImageView.topAnchor.constraint(equalTo: tableViewCell.contentView.topAnchor),
-            thumbImageView.heightAnchor.constraint(equalToConstant: 320)
+            thumbImageView.heightAnchor.constraint(equalToConstant: view.bounds.width)
         ])
         return tableViewCell
     }

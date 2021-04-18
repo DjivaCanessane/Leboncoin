@@ -157,7 +157,7 @@ extension AdCollectionViewController: UICollectionViewDelegateFlowLayout {
 
         let width = (view.frame.width / 2) - (LayoutConstant.spacing * 2)
 
-        return CGSize(width: width, height: LayoutConstant.itemHeight)
+        return CGSize(width: width, height: width * 1.65)
     }
 
     func collectionView(

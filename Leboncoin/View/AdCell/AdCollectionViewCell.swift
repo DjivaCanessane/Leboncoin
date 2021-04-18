@@ -17,70 +17,73 @@ final class AdCollectionViewCell: UICollectionViewCell {
 
     // MARK: Properties
 
+    var isUrgent: Bool = false
+
     // MARK: Methods
+
+    func setup(with ad: Ad, adCategoryStr: String) {
+        if let smallImageData = ad.smallImageData { adImageView.image = UIImage(data: smallImageData )
+        } else { adImageView.image = UIImage(named: "AdDefaultImage") }
+        titleLabel.text = ad.title
+        categoryLabel.text = adCategoryStr
+        priceLabel.text = "\(Int(ad.price)) €"
+        isUrgent = ad.isUrgent
+        setupViews()
+        setupLayouts()
+    }
+
+    // MARK: LifeCycle methods
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setupViews()
-        setupLayouts()
+
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup(with ad: Ad, adCategoryStr: String) {
-        if let smallImageData = ad.smallImageData { adImageView.image = UIImage(data: smallImageData )
-        } else { adImageView.image = UIImage(named: "AdDefaultImage") }
-        titleLabel.text = ad.title
-        adDescriptionLabel.text = ad.description
-        categoryLabel.text = adCategoryStr
-        priceLabel.text = "\(ad.price)"
-    }
-
     // MARK: - PRIVATE
 
     // MARK: Properties
 
-    private let adImageView: UIImageView = {
-        let imageView = UIImageView(frame: .zero)
-        imageView.contentMode = .scaleAspectFill
+    private lazy var adImageView: UIImageView = {
+        let imageView = UIImageView()
+        let contentViewWidth: CGFloat = contentView.bounds.width
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 12
         return imageView
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.textAlignment = .center
-        return label
-    }()
-
-    private let adDescriptionLabel: UILabel = {
-        let label = UILabel(frame: .zero)
         label.numberOfLines = 2
-        label.textColor = .gray
-        label.textAlignment = .center
-        return label
-    }()
-
-    private let categoryLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 18)
         return label
     }()
 
     private let priceLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 14)
+        return label
+    }()
+
+    private let categoryLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
 
     private let urgentLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.layer.cornerRadius = 20.0
+        label.font = .boldSystemFont(ofSize: 12)
+        label.layer.cornerRadius = 4
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .orange
-        label.text = "⚠ URGENT"
+        label.backgroundColor = .white
+        label.text = " ⚠ URGENT  "
         return label
     }()
 
@@ -88,69 +91,61 @@ final class AdCollectionViewCell: UICollectionViewCell {
 
     private func setupViews() {
         contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = Constants.contentViewCornerRadius
         contentView.backgroundColor = .white
 
         contentView.addSubview(adImageView)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(adDescriptionLabel)
         contentView.addSubview(categoryLabel)
         contentView.addSubview(priceLabel)
-        contentView.addSubview(urgentLabel)
+
     }
 
     //swiftlint:disable line_length
     private func setupLayouts() {
         adImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        adDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        urgentLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // Layout constraints for `adImageView`
         NSLayoutConstraint.activate([
             adImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             adImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            adImageView.heightAnchor.constraint(equalToConstant: Constants.imageHeight)
+            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
 
         // Layout constraints for `titleLabel`
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
             titleLabel.topAnchor.constraint(equalTo: adImageView.bottomAnchor, constant: Constants.profileDescriptionVerticalPadding)
         ])
 
-        // Layout constraints for `adDescriptionLabel`
+        // Layout constraints for `priceLabel`
         NSLayoutConstraint.activate([
-            adDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            adDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            adDescriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4.0)
+            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.0)
         ])
 
         // Layout constraints for `categoryLabel`
         NSLayoutConstraint.activate([
-            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
+            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            categoryLabel.topAnchor.constraint(equalTo: adDescriptionLabel.bottomAnchor, constant: 8.0)
+            categoryLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8.0),
+            categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.profileDescriptionVerticalPadding)
         ])
 
-        // Layout constraints for `priceLabel`
-        NSLayoutConstraint.activate([
-            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            priceLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 8.0)
-        ])
+        if isUrgent {
+            contentView.addSubview(urgentLabel)
+            urgentLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `urgentLabel`
-        NSLayoutConstraint.activate([
-            urgentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            urgentLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8.0),
-            urgentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.profileDescriptionVerticalPadding)
-        ])
+            // Layout constraints for `urgentLabel`
+            NSLayoutConstraint.activate([
+                urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+                urgentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8)
+            ])
+        }
     }
     //swiftlint:enable line_lenght
 
@@ -164,8 +159,6 @@ extension AdCollectionViewCell: ReusableView {
 }
 
 enum Constants {
-    // MARK: contentView layout constants
-    static let contentViewCornerRadius: CGFloat = 4.0
 
     // MARK: profileImageView layout constants
     static let imageHeight: CGFloat = 180.0
