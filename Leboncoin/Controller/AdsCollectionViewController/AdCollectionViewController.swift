@@ -25,8 +25,12 @@ class AdCollectionViewController: UIViewController {
         // UI
         setupViews()
         setupLayouts()
-        self.navigationController?.navigationBar.topItem?.title = "Leboncoin"
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = filterButton
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = "Annonces"
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = filterButton
     }
 
     // MARK: Methods
@@ -41,7 +45,8 @@ class AdCollectionViewController: UIViewController {
     private let activityView = UIActivityIndicatorView(style: .large)
 
     private lazy var filterButton: UIBarButtonItem = UIBarButtonItem(
-        barButtonSystemItem: .action,
+        image: UIImage(systemName: "line.horizontal.3.decrease.circle"),
+        style: .plain,
         target: self,
         action: #selector(presentAdCategoriesModally)
     )
@@ -135,15 +140,15 @@ extension AdCollectionViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
+        let collectionCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: AdCollectionViewCell.identifier,
             for: indexPath
         ) as? AdCollectionViewCell ?? AdCollectionViewCell()
 
         let ad: Ad = ads[indexPath.row]
         let adCategoryStr: String = adCategoriesDict[ad.categoryID] ?? "Inconnu"
-        cell.setup(with: ad, adCategoryStr: adCategoryStr)
-        return cell
+        collectionCell.setup(with: ad, adCategoryStr: adCategoryStr)
+        return collectionCell
     }
 
 }

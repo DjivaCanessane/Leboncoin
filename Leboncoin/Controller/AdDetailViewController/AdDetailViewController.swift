@@ -108,10 +108,8 @@ class AdDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getThumbImage()
-        configureUI()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
+        configureTableView()
+        title = "Détails"
 
     }
 
@@ -142,11 +140,6 @@ class AdDetailViewController: UIViewController {
         tableView.frame = view.frame
 
         tableView.tableFooterView = UIView()
-    }
-
-    private func configureUI() {
-        configureTableView()
-        navigationController?.navigationBar.topItem?.title = "Détails"
     }
 
     private func getThumbImageCell(_ tableViewCell: UITableViewCell) -> UITableViewCell {

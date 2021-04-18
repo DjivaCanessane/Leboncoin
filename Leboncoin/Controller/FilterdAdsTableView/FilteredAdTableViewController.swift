@@ -22,7 +22,7 @@ class FilteredAdTableViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
 
-        self.navigationController?.navigationBar.topItem?.title = adCategoriesName
+        title = adCategoriesName
     }
 
     // MARK: Methods
@@ -42,6 +42,7 @@ class FilteredAdTableViewController: UIViewController {
         tableView.dataSource = self
 
         tableView.backgroundColor = .white
+        tableView.register(AdTableViewCell.self, forCellReuseIdentifier: AdTableViewCell.identifier)
     }
 
     @objc
@@ -66,14 +67,18 @@ extension FilteredAdTableViewController: UITableViewDataSource {
         return filteredAds.count
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableViewCell: UITableViewCell = UITableViewCell()
+        let tableViewCell = tableView.dequeueReusableCell(
+            withIdentifier: AdTableViewCell.identifier,
+            for: indexPath
+        ) as? AdTableViewCell ?? AdTableViewCell()
+
         let ad: Ad = filteredAds[indexPath.row]
-        tableViewCell.textLabel?.text = ad.title
-        tableViewCell.detailTextLabel?.text = ad.description
-        if let smallImageData = ad.smallImageData { tableViewCell.imageView?.image = UIImage(data: smallImageData )
-        } else { tableViewCell.imageView?.image = UIImage(named: "AdDefaultImage") }
-        tableViewCell.accessoryView = UIImageView(image: UIImage(systemName: "chevron.forward"))
+        tableViewCell.setup(with: ad)
         return tableViewCell
     }
 }

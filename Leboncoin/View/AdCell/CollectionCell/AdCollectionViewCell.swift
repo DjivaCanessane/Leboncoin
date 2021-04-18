@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol ReusableView: AnyObject {
-    static var identifier: String { get }
-}
-
 final class AdCollectionViewCell: UICollectionViewCell {
 
     // MARK: - INTERNAL
@@ -83,6 +79,8 @@ final class AdCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.textColor = .orange
         label.backgroundColor = .white
+        label.layer.borderColor = UIColor.orange.cgColor
+        label.layer.borderWidth = 1.0
         label.text = " ⚠ URGENT  "
         return label
     }()
