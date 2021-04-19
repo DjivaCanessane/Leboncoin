@@ -32,8 +32,8 @@ class AdCategoryFilterViewController: UIViewController {
             target: self,
             action: #selector(dismissModal)
         )
-        self.navigationController?.navigationBar.topItem?.title = navigationTitle
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = dismissButton
+        navigationController?.navigationBar.topItem?.title = navigationTitle
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = dismissButton
     }
 
     // MARK: Methods
@@ -74,7 +74,7 @@ extension AdCategoryFilterViewController: UITableViewDelegate {
         filteredAdTableViewController.filteredAds = filteredAds
         filteredAdTableViewController.adCategoriesName = selectedCategoryName
 
-        self.navigationController?.dismiss(animated: true) { [self] in
+        navigationController?.dismiss(animated: true) { [self] in
             delegate?.pushWhenModalIsDismissed(filteredAdTableViewController: filteredAdTableViewController)
         }
     }

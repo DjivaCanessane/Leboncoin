@@ -29,8 +29,8 @@ extension Ads {
     func arrangeAds() -> Ads {
         var ads: Ads = self
 
-        // Filter ads according to isUregent, then sort them by creationDate
-        var urgentAds: Ads = self.filter { $0.isUrgent }
+        // Filter ads according to isUrgent, then sort them by creationDate
+        var urgentAds: Ads = ads.filter { $0.isUrgent }
         urgentAds.sort { $0.creationDate > $1.creationDate }
         urgentAds.forEach { urgentAd in
             ads.removeAll { ad -> Bool in

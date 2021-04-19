@@ -245,11 +245,11 @@ extension AdNetworkManagerTestCase {
         var adWithoutThumbImageURL: Ad = makeAd(with: thumbImageURLStr)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { thumbImageData in
+        adNetworkManagerFake.getThumbImage(for: adWithoutThumbImageURL) { [self] thumbImageData in
             adWithoutThumbImageURL.thumbImageData = thumbImageData
-            self.isAdPropertiesConformToExpectation(
+            isAdPropertiesConformToExpectation(
                 ad: adWithoutThumbImageURL,
-                expectedThumbImageURL: self.thumbImageURLStr
+                expectedThumbImageURL: thumbImageURLStr
             )
             expectation.fulfill()
         }
@@ -360,7 +360,7 @@ class AdNetworkManagerTestCase: XCTestCase {
         XCTAssertEqual(ad.id, 1664493117)
         XCTAssertEqual(ad.price, 25.00)
         XCTAssertEqual(ad.creationDate, testDate)
-        XCTAssertEqual(ad.description, self.descriptionStr)
+        XCTAssertEqual(ad.description, descriptionStr)
         XCTAssertEqual(ad.title, "Professeur natif d'espagnol à domicile")
         XCTAssertEqual(ad.isUrgent, false)
         XCTAssertEqual(ad.smallImageURLString, smallImageURL)

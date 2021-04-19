@@ -31,6 +31,8 @@
 		188682E3262C68E600FCF95E /* AdDetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188682E2262C68E600FCF95E /* AdDetailSection.swift */; };
 		189A857B262A07F8001A0968 /* AdsDataForArrangeTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */; };
 		189A857F262A1279001A0968 /* AdsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189A857E262A1279001A0968 /* AdsTestCase.swift */; };
+		18A93559262E4335006591C0 /* AdCollectionViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93558262E4335006591C0 /* AdCollectionViewController+Delegate.swift */; };
+		18A9355D262E4403006591C0 /* AdCollectionViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A9355C262E4403006591C0 /* AdCollectionViewController+DataSource.swift */; };
 		18FF199E262CDBAB007FB605 /* AdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF199D262CDBAB007FB605 /* AdTableViewCell.swift */; };
 		18FF19A4262CDC0B007FB605 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF19A3262CDC0B007FB605 /* ReusableView.swift */; };
 		18FF19DD262DF4FA007FB605 /* AdDetailCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF19DC262DF4FA007FB605 /* AdDetailCellProvider.swift */; };
@@ -76,6 +78,8 @@
 		188682E2262C68E600FCF95E /* AdDetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailSection.swift; sourceTree = "<group>"; };
 		189A857A262A07F8001A0968 /* AdsDataForArrangeTest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AdsDataForArrangeTest.json; sourceTree = "<group>"; };
 		189A857E262A1279001A0968 /* AdsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsTestCase.swift; sourceTree = "<group>"; };
+		18A93558262E4335006591C0 /* AdCollectionViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdCollectionViewController+Delegate.swift"; sourceTree = "<group>"; };
+		18A9355C262E4403006591C0 /* AdCollectionViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdCollectionViewController+DataSource.swift"; sourceTree = "<group>"; };
 		18FF199D262CDBAB007FB605 /* AdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdTableViewCell.swift; sourceTree = "<group>"; };
 		18FF19A3262CDC0B007FB605 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		18FF19DC262DF4FA007FB605 /* AdDetailCellProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailCellProvider.swift; sourceTree = "<group>"; };
@@ -129,7 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				187555662626177200D1CD7E /* AdCollectionViewController.swift */,
-				188682D3262B77F800FCF95E /* AdCategoryFilterViewController.swift */,
+				18A93558262E4335006591C0 /* AdCollectionViewController+Delegate.swift */,
+				18A9355C262E4403006591C0 /* AdCollectionViewController+DataSource.swift */,
 			);
 			path = AdsCollectionViewController;
 			sourceTree = "<group>";
@@ -208,6 +213,7 @@
 		18755599262617FD00D1CD7E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18A93557262E4309006591C0 /* AdCategoryFilterViewController */,
 				181DE83D262A548E00C6A4F9 /* AdsCollectionViewController */,
 				181DE83E262A54A500C6A4F9 /* FilterdAdsTableView */,
 				181DE83F262A54C000C6A4F9 /* AdDetailViewController */,
@@ -287,6 +293,14 @@
 				18FF19A7262DAD0D007FB605 /* Ad */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		18A93557262E4309006591C0 /* AdCategoryFilterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				188682D3262B77F800FCF95E /* AdCategoryFilterViewController.swift */,
+			);
+			path = AdCategoryFilterViewController;
 			sourceTree = "<group>";
 		};
 		18FF199B262CDB85007FB605 /* CollectionCell */ = {
@@ -465,7 +479,9 @@
 				187555652626177200D1CD7E /* SceneDelegate.swift in Sources */,
 				188682D4262B77F800FCF95E /* AdCategoryFilterViewController.swift in Sources */,
 				18FF199E262CDBAB007FB605 /* AdTableViewCell.swift in Sources */,
+				18A9355D262E4403006591C0 /* AdCollectionViewController+DataSource.swift in Sources */,
 				188682BE262B1AFB00FCF95E /* AdCollectionViewCell.swift in Sources */,
+				18A93559262E4335006591C0 /* AdCollectionViewController+Delegate.swift in Sources */,
 				18FF19A4262CDC0B007FB605 /* ReusableView.swift in Sources */,
 				188682DA262B8B9E00FCF95E /* FilteredAdTableViewController.swift in Sources */,
 				188682E3262C68E600FCF95E /* AdDetailSection.swift in Sources */,

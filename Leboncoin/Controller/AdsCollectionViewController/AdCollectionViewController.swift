@@ -11,34 +11,30 @@ class AdCollectionViewController: UIViewController {
 
     // MARK: - INTERNAL
 
-    // MARK: Properties
-
     // MARK: Lifecycle methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Networking
-        populateAds()
-        populateAdCategoriesDict()
+        fetchAds()
+        fetchAdCategoriesDict()
 
         // UI
         setupViews()
         setupLayouts()
-        title = "Annonces"
-        navigationController?.navigationBar.topItem?.rightBarButtonItem = filterButton
     }
-
-    // MARK: Methods
 
     // MARK: - PRIVATE
 
     // MARK: Properties
 
-    private var ads: Ads = []
-    private var adCategoriesDict: AdCategoriesDict = [:]
+    let spacing: CGFloat = 16.0
     private let adNetworkManager: AdNetworkManager = AdNetworkManager.shared
     private let activityView = UIActivityIndicatorView(style: .large)
+
+    var ads: Ads = []
+    var adCategoriesDict: AdCategoriesDict = [:]
 
     private lazy var filterButton: UIBarButtonItem = UIBarButtonItem(
         image: UIImage(systemName: "line.horizontal.3.decrease.circle"),
@@ -54,70 +50,17 @@ class AdCollectionViewController: UIViewController {
         return collectionView
     }()
 
-    private enum LayoutConstant {
-        static let spacing: CGFloat = 16.0
-        static let itemHeight: CGFloat = 300.0
-    }
-
     // MARK: Methods
-
-    @objc
-    private func presentAdCategoriesModally() {
-        let adCategoryFilterViewController = AdCategoryFilterViewController()
-        adCategoryFilterViewController.delegate = self
-        adCategoryFilterViewController.adCategoriesDict = adCategoriesDict
-        adCategoryFilterViewController.ads = ads
-        adCategoryFilterViewController.modalPresentationStyle = .automatic
-
-        present(UINavigationController(rootViewController: adCategoryFilterViewController), animated: true)
-    }
-
-    private func populateAds() {
-        showActivityIndicatory()
-        adNetworkManager.getAdsData { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let networkError): self.showErrorAlert(message: networkError.message)
-            case .success(let downloadedAdsData):
-                self.adNetworkManager.getSmallImage(for: downloadedAdsData) { [weak self] downloadedAds in
-                    guard let self = self else { return }
-                    self.ads = downloadedAds
-                    self.collectionView.reloadData()
-                }
-            }
-
-        }
-    }
-
-    private func populateAdCategoriesDict() {
-        adNetworkManager.getAdCategoriesDict { [weak self] result in
-            guard let self = self else { return }
-            self.activityView.stopAnimating()
-            switch result {
-            case .failure(let networkError): self.showErrorAlert(message: networkError.message)
-            case .success(let downloadedAdCategoriesDict):
-                self.adCategoriesDict = downloadedAdCategoriesDict
-                self.collectionView.reloadData()
-            }
-
-        }
-    }
 
     private func setupViews() {
         view.backgroundColor = .white
+        title = "Annonces"
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = filterButton
         view.addSubview(collectionView)
 
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(AdCollectionViewCell.self, forCellWithReuseIdentifier: AdCollectionViewCell.identifier)
-    }
-
-    private func showActivityIndicatory() {
-        activityView.center = self.view.center
-        activityView.color = .darkGray
-        activityView.style = .large
-        self.view.addSubview(activityView)
-        activityView.startAnimating()
     }
 
     private func setupLayouts() {
@@ -132,89 +75,64 @@ class AdCollectionViewController: UIViewController {
         ])
     }
 
+    @objc
+    private func presentAdCategoriesModally() {
+        let adCategoryFilterViewController = AdCategoryFilterViewController()
+        adCategoryFilterViewController.delegate = self
+        adCategoryFilterViewController.adCategoriesDict = adCategoriesDict
+        adCategoryFilterViewController.ads = ads
+        adCategoryFilterViewController.modalPresentationStyle = .automatic
+
+        present(UINavigationController(rootViewController: adCategoryFilterViewController), animated: true)
+    }
+
+    private func fetchAds() {
+        showActivityIndicatory()
+        adNetworkManager.getAdsData { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let networkError): self.showErrorAlert(message: networkError.message)
+            case .success(let downloadedAdsData):
+                self.adNetworkManager.getSmallImage(for: downloadedAdsData) { [weak self] downloadedAds in
+                    guard let self = self else { return }
+                    self.ads = downloadedAds
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+
+    private func fetchAdCategoriesDict() {
+        adNetworkManager.getAdCategoriesDict { [weak self] result in
+            guard let self = self else { return }
+            self.activityView.stopAnimating()
+            switch result {
+            case .failure(let networkError): self.showErrorAlert(message: networkError.message)
+            case .success(let downloadedAdCategoriesDict):
+                self.adCategoriesDict = downloadedAdCategoriesDict
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
+    private func showActivityIndicatory() {
+        activityView.center = view.center
+        activityView.color = .darkGray
+        activityView.style = .large
+        view.addSubview(activityView)
+        activityView.startAnimating()
+    }
+
     func showErrorAlert(message: String) {
         let alertVC = UIAlertController(title: "Erreur réseau", message: message, preferredStyle: .alert)
         let action: UIAlertAction = UIAlertAction(title: "OK", style: .cancel)
         alertVC.addAction(action)
-        present(alertVC, animated: true, completion: nil)
-    }
-}
-
-extension AdCollectionViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ads.count
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let collectionCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: AdCollectionViewCell.identifier,
-            for: indexPath
-        ) as? AdCollectionViewCell ?? AdCollectionViewCell()
-
-        let ad: Ad = ads[indexPath.row]
-        let adCategoryStr: String = adCategoriesDict[ad.categoryID] ?? "Inconnu"
-        collectionCell.setup(with: ad, adCategoryStr: adCategoryStr)
-        return collectionCell
-    }
-
-}
-
-extension AdCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-
-        let width = (view.frame.width / 2) - (LayoutConstant.spacing * 2)
-
-        return CGSize(width: width, height: width * 2)
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-        return UIEdgeInsets(
-            top: LayoutConstant.spacing,
-            left: LayoutConstant.spacing,
-            bottom: LayoutConstant.spacing,
-            right: LayoutConstant.spacing
-        )
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        return LayoutConstant.spacing
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        return LayoutConstant.spacing
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let adDetailViewController: AdDetailViewController = AdDetailViewController()
-        let ad: Ad = ads[indexPath.row]
-        adDetailViewController.ad = ad
-        adDetailViewController.adDetailCellProvider =
-            AdDetailCellProvider(ad: ad, adCategoryName: adCategoriesDict[ad.categoryID] ?? "Inconnu")
-        navigationController?.pushViewController(adDetailViewController, animated: true)
+        present(alertVC, animated: true)
     }
 }
 
 extension AdCollectionViewController: AdCategoryFilterViewDelegate {
     func pushWhenModalIsDismissed(filteredAdTableViewController: FilteredAdTableViewController) {
-        self.navigationController?.pushViewController(filteredAdTableViewController, animated: true)
+        navigationController?.pushViewController(filteredAdTableViewController, animated: true)
     }
 }

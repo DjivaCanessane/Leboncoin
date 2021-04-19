@@ -31,7 +31,7 @@ class AdDetailViewController: UIViewController {
 
     // MARK: Properties
 
-    private var tableView: UITableView = UITableView()
+    private let tableView: UITableView = UITableView()
     private let adNetworkManager: AdNetworkManager = AdNetworkManager.shared
 
     // MARK: Methods
@@ -52,14 +52,10 @@ class AdDetailViewController: UIViewController {
         view.addSubview(tableView)
         tableView.frame = view.frame
 
+        // To avoid unnecessary tableView's sepators
         tableView.tableFooterView = UIView()
     }
 
 }
 
-extension AdDetailViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
-}
+extension AdDetailViewController: UITableViewDelegate {}

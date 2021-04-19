@@ -13,8 +13,6 @@ class AdDetailCellProvider {
 
     // MARK: - INTERNAL
 
-    // MARK: Properties
-
     // MARK: Methods
 
     init(ad: Ad, adCategoryName: String) {
