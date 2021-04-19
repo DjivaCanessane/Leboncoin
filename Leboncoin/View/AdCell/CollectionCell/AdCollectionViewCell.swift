@@ -69,7 +69,7 @@ final class AdCollectionViewCell: UICollectionViewCell {
         label.textColor = .orange
         label.backgroundColor = .white
         label.layer.borderColor = UIColor.orange.cgColor
-        label.layer.borderWidth = 1.0
+        label.layer.borderWidth = 1
         label.text = " ⚠ URGENT  "
         return label
     }()
@@ -114,7 +114,7 @@ final class AdCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            titleLabel.topAnchor.constraint(equalTo: adImageView.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
+            titleLabel.topAnchor.constraint(equalTo: adImageView.bottomAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 
@@ -135,7 +135,7 @@ final class AdCollectionViewCell: UICollectionViewCell {
             categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
             categoryLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
-            categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.profileDescriptionVerticalPadding)
+            categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalPadding)
         ])
     }
 

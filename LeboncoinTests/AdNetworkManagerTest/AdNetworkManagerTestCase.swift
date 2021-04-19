@@ -341,7 +341,7 @@ class AdNetworkManagerTestCase: XCTestCase {
             categoryID: 9,
             title: "Professeur natif d'espagnol à domicile",
             description: descriptionStr,
-            price: 25.00,
+            price: 25,
             imagesURL: ImagesURL(small: smallImageURLStr, thumb: nil),
             creationDate: date,
             isUrgent: false,
@@ -358,7 +358,7 @@ class AdNetworkManagerTestCase: XCTestCase {
     ) {
         XCTAssertEqual(ad.categoryID, 9)
         XCTAssertEqual(ad.id, 1664493117)
-        XCTAssertEqual(ad.price, 25.00)
+        XCTAssertEqual(ad.price, 25)
         XCTAssertEqual(ad.creationDate, testDate)
         XCTAssertEqual(ad.description, descriptionStr)
         XCTAssertEqual(ad.title, "Professeur natif d'espagnol à domicile")
@@ -377,7 +377,7 @@ class AdNetworkManagerTestCase: XCTestCase {
             title: "Professeur natif d'espagnol à domicile",
             description: descriptionStr,
             categoryID: 9,
-            price: 25.00,
+            price: 25,
             isUrgent: false,
             siret: "123 323 002",
             smallImageURLString: nil,

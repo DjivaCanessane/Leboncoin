@@ -1,4 +1,4 @@
-//  swiftlint:disable identifier_name
+//
 //  AdCollectionViewController.swift
 //  Leboncoin
 //
@@ -10,6 +10,12 @@ import UIKit
 class AdCollectionViewController: UIViewController {
 
     // MARK: - INTERNAL
+
+    // MARK: Properties
+
+    let spacing: CGFloat = 16
+    var ads: Ads = []
+    var adCategoriesDict: AdCategoriesDict = [:]
 
     // MARK: Lifecycle methods
 
@@ -29,12 +35,8 @@ class AdCollectionViewController: UIViewController {
 
     // MARK: Properties
 
-    let spacing: CGFloat = 16.0
     private let adNetworkManager: AdNetworkManager = AdNetworkManager.shared
     private let activityView = UIActivityIndicatorView(style: .large)
-
-    var ads: Ads = []
-    var adCategoriesDict: AdCategoriesDict = [:]
 
     private lazy var filterButton: UIBarButtonItem = UIBarButtonItem(
         image: UIImage(systemName: "line.horizontal.3.decrease.circle"),

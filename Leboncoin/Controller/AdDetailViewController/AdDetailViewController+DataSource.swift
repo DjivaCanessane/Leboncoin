@@ -9,12 +9,6 @@ import UIKit
 
 extension AdDetailViewController: UITableViewDataSource {
 
-    // MARK: - INTERNAL
-
-    // MARK: Properties
-
-    // MARK: Methods
-
     // MARK: - Section methods
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,8 +50,8 @@ extension AdDetailViewController: UITableViewDataSource {
         switch adDetailSection {
         case .thumbImage: return .zero
         case .essantialsDetails: return .zero
-        case .category: return 36.0
-        case .description: return 36.0
+        case .category: return 36
+        case .description: return 36
         }
     }
 
@@ -80,16 +74,14 @@ extension AdDetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let adDetailSection = AdDetailSection(rawValue: indexPath.section) else { return UITableViewCell() }
-        let cell = UITableViewCell()
         switch adDetailSection {
         case .thumbImage: return adDetailCellProvider.getThumbImageCell(
-            tableViewCell: cell,
             adForThumbImage: ad,
             width: view.bounds.width
         )
-        case .essantialsDetails: return adDetailCellProvider.getEssentialDetailsCell(tableViewCell: cell)
-        case .category: return adDetailCellProvider.getCategoryCell(tableViewCell: cell)
-        case .description: return adDetailCellProvider.getDescriptionCell(tableViewCell: cell)
+        case .essantialsDetails: return adDetailCellProvider.getEssentialDetailsCell()
+        case .category: return adDetailCellProvider.getCategoryCell()
+        case .description: return adDetailCellProvider.getDescriptionCell()
         }
     }
 }

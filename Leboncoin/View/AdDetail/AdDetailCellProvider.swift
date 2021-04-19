@@ -7,8 +7,6 @@
 
 import UIKit
 
-// MARK: Cells layout
-
 class AdDetailCellProvider {
 
     // MARK: - INTERNAL
@@ -20,15 +18,17 @@ class AdDetailCellProvider {
         self.adCategoryName = adCategoryName
     }
 
-    func getThumbImageCell(tableViewCell: UITableViewCell, adForThumbImage: Ad, width: CGFloat) -> UITableViewCell {
-        let thumbImageView: UIImageView = UIImageView()
+    func getThumbImageCell(adForThumbImage: Ad, width: CGFloat) -> UITableViewCell {
+        let tableViewCell: UITableViewCell = UITableViewCell()
         let contentView = tableViewCell.contentView
+        let thumbImageView: UIImageView = UIImageView()
 
         if let thumbImageData = adForThumbImage.thumbImageData { thumbImageView.image = UIImage(data: thumbImageData)
         } else { thumbImageView.image = UIImage(named: "AdDefaultImage") }
 
-        tableViewCell.contentView.addSubview(thumbImageView)
+        contentView.addSubview(thumbImageView)
         thumbImageView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             thumbImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             thumbImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -38,7 +38,8 @@ class AdDetailCellProvider {
         return tableViewCell
     }
 
-    func getEssentialDetailsCell(tableViewCell: UITableViewCell) -> UITableViewCell {
+    func getEssentialDetailsCell() -> UITableViewCell {
+        let tableViewCell: UITableViewCell = UITableViewCell()
         let contentView = tableViewCell.contentView
 
         let titleTextView: UITextView = UITextView()
@@ -53,29 +54,29 @@ class AdDetailCellProvider {
         return tableViewCell
     }
 
-    func getCategoryCell(tableViewCell: UITableViewCell) -> UITableViewCell {
+    func getCategoryCell() -> UITableViewCell {
+        let tableViewCell: UITableViewCell = UITableViewCell()
         tableViewCell.textLabel?.text = adCategoryName
         return tableViewCell
     }
 
-    func getDescriptionCell(tableViewCell: UITableViewCell) -> UITableViewCell {
-        //let tableViewCell: UITableViewCell = UITableViewCell()
+    func getDescriptionCell() -> UITableViewCell {
+        let tableViewCell: UITableViewCell = UITableViewCell()
         let contentView: UIView = tableViewCell.contentView
-        let textView: UITextView = UITextView()
+        let descriptionView: UITextView = UITextView()
 
-        textView.text = ad.description
-        textView.isEditable = false
-        textView.isSelectable = true
+        descriptionView.text = ad.description
+        descriptionView.isEditable = false
+        descriptionView.isSelectable = true
 
-        contentView.addSubview(textView)
-        textView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(descriptionView)
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `textView`
         NSLayoutConstraint.activate([
-            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
-            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding),
-            textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.profileDescriptionVerticalPadding)
+            descriptionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            descriptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            descriptionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalPadding),
+            descriptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalPadding)
         ])
 
         return tableViewCell
@@ -99,11 +100,10 @@ class AdDetailCellProvider {
         contentView.addSubview(textView)
         textView.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `titleTextView`
         NSLayoutConstraint.activate([
             textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
             textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding),
+            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalPadding),
             textView.heightAnchor.constraint(equalToConstant: 80)
         ])
     }
@@ -130,16 +130,15 @@ class AdDetailCellProvider {
         siretStackView.axis = .horizontal
         siretStackView.distribution = .equalSpacing
         siretStackView.alignment = .leading
-        siretStackView.spacing = 30.0
+        siretStackView.spacing = 30
 
         contentView.addSubview(siretStackView)
         siretStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `siretStackView`
         NSLayoutConstraint.activate([
             siretStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
             siretStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            siretStackView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
+            siretStackView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 
@@ -147,11 +146,10 @@ class AdDetailCellProvider {
         contentView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `priceLabel`
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            label.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
+            label.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 
@@ -161,11 +159,9 @@ class AdDetailCellProvider {
         dateFormatter.dateFormat = "dd/MM/yyyy à HH:mm"
         creationDateLabel.text = dateFormatter.string(from: date)
 
-        if ad.isUrgent {
-            addUrgentStack(creationDateLabel: creationDateLabel, contentView: contentView, priceLabel: priceLabel)
-        } else {
+        ad.isUrgent ?
+            addUrgentStack(creationDateLabel: creationDateLabel, contentView: contentView, priceLabel: priceLabel) :
             addCreationDate(label: creationDateLabel, contentView: contentView, priceLabel: priceLabel)
-        }
     }
 
     private func addUrgentStack(creationDateLabel: UILabel, contentView: UIView, priceLabel: UIView) {
@@ -182,16 +178,15 @@ class AdDetailCellProvider {
         urgentStackView.axis = .horizontal
         urgentStackView.distribution = .fillProportionally
         urgentStackView.alignment = .leading
-        urgentStackView.spacing = 30.0
+        urgentStackView.spacing = 30
 
         contentView.addSubview(urgentStackView)
         urgentStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `urgentStackView`
         NSLayoutConstraint.activate([
             urgentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
             urgentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            urgentStackView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
+            urgentStackView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 
@@ -199,11 +194,10 @@ class AdDetailCellProvider {
         contentView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `creationDateLabel`
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            label.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
+            label.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 }

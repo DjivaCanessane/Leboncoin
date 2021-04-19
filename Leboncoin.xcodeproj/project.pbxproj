@@ -226,8 +226,8 @@
 		1875559A2626180400D1CD7E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18FF19DB262DF4DB007FB605 /* AdDetail */,
 				188682BC262B1AB200FCF95E /* AdCell */,
+				18FF19DB262DF4DB007FB605 /* AdDetail */,
 				18A93560262E4720006591C0 /* LayoutConstant.swift */,
 			);
 			path = View;

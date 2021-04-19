@@ -8,10 +8,6 @@
 import UIKit
 
 enum LayoutConstant {
-
-    // MARK: Generic layout constants
-
-    static let verticalSpacing: CGFloat = 8.0
-    static let horizontalPadding: CGFloat = 16.0
-    static let profileDescriptionVerticalPadding: CGFloat = 8.0
+    static let verticalPadding: CGFloat = 8
+    static let horizontalPadding: CGFloat = 16
 }

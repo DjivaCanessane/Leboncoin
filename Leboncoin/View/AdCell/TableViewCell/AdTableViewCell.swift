@@ -88,8 +88,8 @@ final class AdTableViewCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             adImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
-            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalSpacing),
-            adImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalSpacing),
+            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalPadding),
+            adImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalPadding),
             adImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75, constant: 0)
         ])
     }
@@ -100,7 +100,7 @@ final class AdTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 
@@ -110,7 +110,7 @@ final class AdTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             priceLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.0)
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 
@@ -120,7 +120,7 @@ final class AdTableViewCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            urgentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalSpacing)
+            urgentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalPadding)
         ])
     }
     //swiftlint:enable line_lenght
