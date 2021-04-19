@@ -26,7 +26,6 @@ final class AdCollectionViewCell: UICollectionViewCell {
         priceLabel.text = "\(Int(ad.price)) €"
         isUrgent = ad.isUrgent
         setupViews()
-        setupLayouts()
     }
 
     // MARK: - PRIVATE
@@ -86,6 +85,7 @@ final class AdCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(categoryLabel)
         contentView.addSubview(priceLabel)
 
+        setupLayouts()
     }
 
     private func setupLayouts() {

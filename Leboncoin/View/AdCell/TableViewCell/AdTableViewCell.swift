@@ -24,18 +24,14 @@ final class AdTableViewCell: UITableViewCell {
         priceLabel.text = "\(Int(ad.price)) €"
         isUrgent = ad.isUrgent
         setupViews()
-        setupLayouts()
     }
-
-    // MARK: LifeCycle methods
 
     // MARK: - PRIVATE
 
     // MARK: Properties
 
-    private lazy var adImageView: UIImageView = {
+    private let adImageView: UIImageView = {
         let imageView = UIImageView()
-        let contentViewWidth: CGFloat = contentView.bounds.width
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
         return imageView
@@ -76,49 +72,58 @@ final class AdTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
 
+        setupLayouts()
+    }
+
+    private func setupLayouts() {
+        addAdImageView()
+        addTitleLabel()
+        addPriceLabel()
+        if isUrgent { addUrgentLabel() }
     }
 
     //swiftlint:disable line_length
-    private func setupLayouts() {
+    private func addAdImageView() {
         adImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `adImageView`
         NSLayoutConstraint.activate([
             adImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
             adImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalSpacing),
             adImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalSpacing),
             adImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75, constant: 0)
         ])
+    }
 
-        // Layout constraints for `titleLabel`
+    private func addTitleLabel() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
         ])
+    }
 
-        // Layout constraints for `priceLabel`
+    private func addPriceLabel() {
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             priceLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.0)
         ])
+    }
 
-        if isUrgent {
-            contentView.addSubview(urgentLabel)
-            urgentLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func addUrgentLabel() {
+        contentView.addSubview(urgentLabel)
+        urgentLabel.translatesAutoresizingMaskIntoConstraints = false
 
-            // Layout constraints for `urgentLabel`
-            NSLayoutConstraint.activate([
-                urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-                urgentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalSpacing)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            urgentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalSpacing)
+        ])
     }
     //swiftlint:enable line_lenght
-
 }
 
 extension AdTableViewCell: ReusableView {
