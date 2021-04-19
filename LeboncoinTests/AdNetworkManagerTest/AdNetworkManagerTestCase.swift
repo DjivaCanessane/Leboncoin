@@ -5,7 +5,8 @@
 //  Created by Djiveradjane Canessane on 14/04/2021.
 //
 
-// Timeout delay are set to 0.02 seconds instead 0.01 to avoid tests to fail when the Mac performances are slow due to other apps
+// Timeout delay are set to 0.02 seconds instead 0.01
+// to avoid tests to fail when the Mac performances are slow due to other apps
 
 import XCTest
 @testable import Leboncoin

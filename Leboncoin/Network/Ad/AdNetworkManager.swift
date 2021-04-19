@@ -80,7 +80,7 @@ class AdNetworkManager {
             }
         }
 
-        // Once all fetchings are accomplished, we send the array of Ad via the callback
+        // Once all fetchings are accomplished, we send the array of ad via the callback
         fetchGroup.notify(queue: .main) {
             callback(ads.arrangeAds())
         }

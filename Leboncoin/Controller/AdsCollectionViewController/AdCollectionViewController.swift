@@ -165,7 +165,7 @@ extension AdCollectionViewController: UICollectionViewDelegateFlowLayout {
 
         let width = (view.frame.width / 2) - (LayoutConstant.spacing * 2)
 
-        return CGSize(width: width, height: width * 1.65)
+        return CGSize(width: width, height: width * 2)
     }
 
     func collectionView(
@@ -201,7 +201,8 @@ extension AdCollectionViewController: UICollectionViewDelegateFlowLayout {
         let adDetailViewController: AdDetailViewController = AdDetailViewController()
         let ad: Ad = ads[indexPath.row]
         adDetailViewController.ad = ad
-        adDetailViewController.adCategoryName = adCategoriesDict[ad.categoryID] ?? "Inconnu"
+        adDetailViewController.adDetailCellProvider =
+            AdDetailCellProvider(ad: ad, adCategoryName: adCategoriesDict[ad.categoryID] ?? "Inconnu")
         navigationController?.pushViewController(adDetailViewController, animated: true)
     }
 }

@@ -45,9 +45,9 @@ final class AdCollectionViewCell: UICollectionViewCell {
 
     private lazy var adImageView: UIImageView = {
         let imageView = UIImageView()
-        let contentViewWidth: CGFloat = contentView.bounds.width
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
@@ -109,7 +109,8 @@ final class AdCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             adImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             adImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor)
+            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            adImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.25)
         ])
 
         // Layout constraints for `titleLabel`
@@ -123,14 +124,14 @@ final class AdCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.0)
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
         ])
 
         // Layout constraints for `categoryLabel`
         NSLayoutConstraint.activate([
             categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            categoryLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8.0),
+            categoryLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
             categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.profileDescriptionVerticalPadding)
         ])
 

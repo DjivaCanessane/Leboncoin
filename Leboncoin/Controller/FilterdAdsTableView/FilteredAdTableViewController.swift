@@ -56,7 +56,8 @@ extension FilteredAdTableViewController: UITableViewDelegate {
         let adDetailViewController: AdDetailViewController = AdDetailViewController()
         let ad: Ad = filteredAds[indexPath.row]
         adDetailViewController.ad = ad
-        adDetailViewController.adCategoryName = adCategoriesName
+        adDetailViewController.adDetailCellProvider =
+            AdDetailCellProvider(ad: ad, adCategoryName: adCategoriesName)
         navigationController?.pushViewController(adDetailViewController, animated: true)
     }
 }
