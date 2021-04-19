@@ -1,5 +1,5 @@
 //  swiftlint:disable identifier_name
-//  ItemResult.swift
+//  AdData.swift
 //  Leboncoin
 //
 //  Created by Djiveradjane Canessane on 13/04/2021.

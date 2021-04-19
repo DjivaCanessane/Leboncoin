@@ -18,8 +18,9 @@ final class AdCollectionViewCell: UICollectionViewCell {
     // MARK: Methods
 
     func setup(with ad: Ad, adCategoryStr: String) {
-        if let smallImageData = ad.smallImageData { adImageView.image = UIImage(data: smallImageData )
+        if let smallImageData = ad.smallImageData { adImageView.image = UIImage(data: smallImageData)
         } else { adImageView.image = UIImage(named: "AdDefaultImage") }
+
         titleLabel.text = ad.title
         categoryLabel.text = adCategoryStr
         priceLabel.text = "\(Int(ad.price)) €"
@@ -28,22 +29,11 @@ final class AdCollectionViewCell: UICollectionViewCell {
         setupLayouts()
     }
 
-    // MARK: LifeCycle methods
-
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     // MARK: - PRIVATE
 
     // MARK: Properties
 
-    private lazy var adImageView: UIImageView = {
+    private let adImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
@@ -98,56 +88,67 @@ final class AdCollectionViewCell: UICollectionViewCell {
 
     }
 
-    //swiftlint:disable line_length
     private func setupLayouts() {
-        adImageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        addAdImageView()
+        addTitleLabel()
+        addPriceLabel()
+        addCategoryLabel()
+        if isUrgent { addUrgentLabel() }
+    }
 
-        // Layout constraints for `adImageView`
+    //swiftlint:disable line_length
+    private func addAdImageView() {
+        adImageView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             adImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             adImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             adImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             adImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.25)
         ])
+    }
 
-        // Layout constraints for `titleLabel`
+    private func addTitleLabel() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            titleLabel.topAnchor.constraint(equalTo: adImageView.bottomAnchor, constant: Constants.profileDescriptionVerticalPadding)
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            titleLabel.topAnchor.constraint(equalTo: adImageView.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
         ])
+    }
 
-        // Layout constraints for `priceLabel`
+    private func addPriceLabel() {
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
+            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
         ])
+    }
 
-        // Layout constraints for `categoryLabel`
+    private func addCategoryLabel() {
+        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
+            categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
             categoryLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
-            categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.profileDescriptionVerticalPadding)
+            categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.profileDescriptionVerticalPadding)
         ])
+    }
 
-        if isUrgent {
-            contentView.addSubview(urgentLabel)
-            urgentLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func addUrgentLabel() {
+        contentView.addSubview(urgentLabel)
+        urgentLabel.translatesAutoresizingMaskIntoConstraints = false
 
-            // Layout constraints for `urgentLabel`
-            NSLayoutConstraint.activate([
-                urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-                urgentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            urgentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8)
+        ])
     }
     //swiftlint:enable line_lenght
-
 }
 
 extension AdCollectionViewCell: ReusableView {
@@ -155,15 +156,4 @@ extension AdCollectionViewCell: ReusableView {
         return String(describing: self)
 
     }
-}
-
-enum Constants {
-
-    // MARK: profileImageView layout constants
-    static let imageHeight: CGFloat = 180.0
-
-    // MARK: Generic layout constants
-    static let verticalSpacing: CGFloat = 8.0
-    static let horizontalPadding: CGFloat = 16.0
-    static let profileDescriptionVerticalPadding: CGFloat = 8.0
 }

@@ -86,23 +86,23 @@ final class AdTableViewCell: UITableViewCell {
 
         // Layout constraints for `adImageView`
         NSLayoutConstraint.activate([
-            adImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.verticalSpacing),
-            adImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.verticalSpacing),
+            adImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            adImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalSpacing),
+            adImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalSpacing),
             adImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75, constant: 0)
         ])
 
         // Layout constraints for `titleLabel`
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: Constants.horizontalPadding),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.profileDescriptionVerticalPadding)
+            titleLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
         ])
 
         // Layout constraints for `priceLabel`
         NSLayoutConstraint.activate([
-            priceLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: Constants.horizontalPadding),
-            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
+            priceLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
+            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.0)
         ])
 
@@ -112,8 +112,8 @@ final class AdTableViewCell: UITableViewCell {
 
             // Layout constraints for `urgentLabel`
             NSLayoutConstraint.activate([
-                urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-                urgentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.verticalSpacing)
+                urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+                urgentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalSpacing)
             ])
         }
     }

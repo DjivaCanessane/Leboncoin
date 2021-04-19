@@ -33,6 +33,7 @@
 		189A857F262A1279001A0968 /* AdsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189A857E262A1279001A0968 /* AdsTestCase.swift */; };
 		18A93559262E4335006591C0 /* AdCollectionViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93558262E4335006591C0 /* AdCollectionViewController+Delegate.swift */; };
 		18A9355D262E4403006591C0 /* AdCollectionViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A9355C262E4403006591C0 /* AdCollectionViewController+DataSource.swift */; };
+		18A93561262E4720006591C0 /* LayoutConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93560262E4720006591C0 /* LayoutConstant.swift */; };
 		18FF199E262CDBAB007FB605 /* AdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF199D262CDBAB007FB605 /* AdTableViewCell.swift */; };
 		18FF19A4262CDC0B007FB605 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF19A3262CDC0B007FB605 /* ReusableView.swift */; };
 		18FF19DD262DF4FA007FB605 /* AdDetailCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF19DC262DF4FA007FB605 /* AdDetailCellProvider.swift */; };
@@ -80,6 +81,7 @@
 		189A857E262A1279001A0968 /* AdsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsTestCase.swift; sourceTree = "<group>"; };
 		18A93558262E4335006591C0 /* AdCollectionViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdCollectionViewController+Delegate.swift"; sourceTree = "<group>"; };
 		18A9355C262E4403006591C0 /* AdCollectionViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdCollectionViewController+DataSource.swift"; sourceTree = "<group>"; };
+		18A93560262E4720006591C0 /* LayoutConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConstant.swift; sourceTree = "<group>"; };
 		18FF199D262CDBAB007FB605 /* AdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdTableViewCell.swift; sourceTree = "<group>"; };
 		18FF19A3262CDC0B007FB605 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		18FF19DC262DF4FA007FB605 /* AdDetailCellProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailCellProvider.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				18FF19DB262DF4DB007FB605 /* AdDetail */,
 				188682BC262B1AB200FCF95E /* AdCell */,
+				18A93560262E4720006591C0 /* LayoutConstant.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				18A9355D262E4403006591C0 /* AdCollectionViewController+DataSource.swift in Sources */,
 				188682BE262B1AFB00FCF95E /* AdCollectionViewCell.swift in Sources */,
 				18A93559262E4335006591C0 /* AdCollectionViewController+Delegate.swift in Sources */,
+				18A93561262E4720006591C0 /* LayoutConstant.swift in Sources */,
 				18FF19A4262CDC0B007FB605 /* ReusableView.swift in Sources */,
 				188682DA262B8B9E00FCF95E /* FilteredAdTableViewController.swift in Sources */,
 				188682E3262C68E600FCF95E /* AdDetailSection.swift in Sources */,

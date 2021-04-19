@@ -1,4 +1,4 @@
-//
+//  swiftlint:disable identifier_name
 //  AdCollectionViewController+DataSource.swift
 //  Leboncoin
 //

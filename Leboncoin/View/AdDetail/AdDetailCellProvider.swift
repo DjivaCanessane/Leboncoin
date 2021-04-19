@@ -1,5 +1,5 @@
 //  swiftlint:disable line_length identifier_name
-//  AdDetailView.swift
+//  AdDetailCellProvider.swift
 //  Leboncoin
 //
 //  Created by Djiveradjane Canessane on 19/04/2021.
@@ -72,10 +72,10 @@ class AdDetailCellProvider {
 
         // Layout constraints for `textView`
         NSLayoutConstraint.activate([
-            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.profileDescriptionVerticalPadding),
-            textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.profileDescriptionVerticalPadding)
+            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding),
+            textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.profileDescriptionVerticalPadding)
         ])
 
         return tableViewCell
@@ -101,9 +101,9 @@ class AdDetailCellProvider {
 
         // Layout constraints for `titleTextView`
         NSLayoutConstraint.activate([
-            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.profileDescriptionVerticalPadding),
+            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            textView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding),
             textView.heightAnchor.constraint(equalToConstant: 80)
         ])
     }
@@ -137,9 +137,9 @@ class AdDetailCellProvider {
 
         // Layout constraints for `siretStackView`
         NSLayoutConstraint.activate([
-            siretStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            siretStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            siretStackView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: Constants.profileDescriptionVerticalPadding)
+            siretStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            siretStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            siretStackView.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
         ])
     }
 
@@ -149,9 +149,9 @@ class AdDetailCellProvider {
 
         // Layout constraints for `priceLabel`
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            label.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: Constants.profileDescriptionVerticalPadding)
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            label.topAnchor.constraint(equalTo: titleTextView.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
         ])
     }
 
@@ -189,9 +189,9 @@ class AdDetailCellProvider {
 
         // Layout constraints for `urgentStackView`
         NSLayoutConstraint.activate([
-            urgentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            urgentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            urgentStackView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: Constants.profileDescriptionVerticalPadding)
+            urgentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            urgentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            urgentStackView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
         ])
     }
 
@@ -201,9 +201,9 @@ class AdDetailCellProvider {
 
         // Layout constraints for `creationDateLabel`
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.horizontalPadding),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.horizontalPadding),
-            label.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: Constants.profileDescriptionVerticalPadding)
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstant.horizontalPadding),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            label.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: LayoutConstant.profileDescriptionVerticalPadding)
         ])
     }
 }
