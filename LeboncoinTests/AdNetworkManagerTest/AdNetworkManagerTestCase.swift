@@ -5,76 +5,71 @@
 //  Created by Djiveradjane Canessane on 14/04/2021.
 //
 
+// Timeout delay are set to 0.02 seconds instead 0.01 to avoid tests to fail when the Mac performances are slow due to other apps
+
 import XCTest
 @testable import Leboncoin
 
 // MARK: - getAds() tests
 
 extension AdNetworkManagerTestCase {
-    func testGetAds_WhenSessionGotError_ShouldPostFailedCallback_WithNetworkError() {
+
+    // MARK: Tests NetworkService errors
+
+    func testGetAdsData_WhenSessionGotError_ShouldPostFailedCallback_WithNetworkError() {
         setUpFakes(data: nil, response: nil, error: FakeResponseData.error)
-        shouldGet(error: .hasError, for: adNetworkManagerFake.getAds)
+        shouldGet(error: .hasError, for: adNetworkManagerFake.getAdsData)
     }
 
-    func testGetAds_WhenCanNotMakeURLFromURLStr_ShouldReturnFailedCallback_WithInvalidURLError() {
+    func testGetAdsData_WhenCanNotMakeURLFromURLStr_ShouldReturnFailedCallback_WithInvalidURLError() {
         setUpFakes(data: nil, response: nil, error: nil, adsURLStr: "")
-        shouldGet(error: .invalidURL, for: adNetworkManagerFake.getAds)
+        shouldGet(error: .invalidURL, for: adNetworkManagerFake.getAdsData)
     }
 
-    func testGetAds_WhenDataIsWrongFormat_ShouldNotDecodeJsonAndRetrunFailedCallback_WithError() {
+    func testGetAdsData_WhenDataIsWrongFormat_ShouldNotDecodeJsonAndRetrunFailedCallback_WithError() {
         let wrongFormatData: Data? = FakeResponseData.generateData(for: "UndecodableAdsData")
         setUpFakes(data: wrongFormatData, response: FakeResponseData.responseOK, error: nil)
-        shouldGet(error: .canNotDecode, for: adNetworkManagerFake.getAds)
+        shouldGet(error: .canNotDecode, for: adNetworkManagerFake.getAdsData)
     }
 
-    func testGetAds_WhenSessionHasData_ButAdDataDateIsWrongFormat_ShouldPostSuccessCallback_WithAdDatedByDistantPast() {
-        let correctData: Data? = FakeResponseData.generateData(for: "AdDataWithWrongFormatDate")
-        setUpFakes(data: correctData, response: FakeResponseData.responseOK, error: nil)
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
-
-        adNetworkManagerFake.getAds { result in
-            switch result {
-            case .success(let ads): self.isAdPropertiesConformToExpectation(ad: ads[0], expectedDate: .distantPast)
-            case .failure(let error): XCTFail("With error: \(error)")
-            }
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 0.01)
-    }
+    // MARK: Test GetAds success
 
     func testGetAds_WhenGetAdsData_ShouldBeArranged_ByEmmergencyAndCreationDate() {
         let correctData: Data? = FakeResponseData.generateData(for: "AdsDataForArrangeTest")
         setUpFakes(data: correctData, response: FakeResponseData.responseOK, error: nil)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getAds { [self]  result in
+        adNetworkManagerFake.getAdsData { result in
             switch result {
-            case .success(let ads):
-                XCTAssertTrue(ads[0].isUrgent)
-                XCTAssertEqual(ads[0].creationDate, dateFormatter.date(from: "2019-12-06T11:22:02+0000")!)
+            case .success(let adsData):
+                XCTAssertFalse(adsData[0].isUrgent)
+                XCTAssertEqual(adsData[0].creationDate, "2019-10-11T12:18:39+0000")
 
-                XCTAssertTrue(ads[1].isUrgent)
-                XCTAssertEqual(ads[1].creationDate, dateFormatter.date(from: "2019-04-06T11:21:48+0000")!)
+                XCTAssertTrue(adsData[1].isUrgent)
+                XCTAssertEqual(adsData[1].creationDate, "2019-12-06T11:22:02+0000")
 
-                XCTAssertFalse(ads[2].isUrgent)
-                XCTAssertEqual(ads[2].creationDate, dateFormatter.date(from: "2019-11-06T11:21:46+0000")!)
+                XCTAssertFalse(adsData[2].isUrgent)
+                XCTAssertEqual(adsData[2].creationDate, "2019-01-06T11:21:53+0000")
 
-                XCTAssertFalse(ads[3].isUrgent)
-                XCTAssertEqual(ads[3].creationDate, dateFormatter.date(from: "2019-10-11T12:18:39+0000")!)
+                XCTAssertTrue(adsData[3].isUrgent)
+                XCTAssertEqual(adsData[3].creationDate, "2019-04-06T11:21:48+0000")
 
-                XCTAssertFalse(ads[4].isUrgent)
-                XCTAssertEqual(ads[4].creationDate, dateFormatter.date(from: "2019-01-06T11:21:53+0000")!)
+                XCTAssertFalse(adsData[4].isUrgent)
+                XCTAssertEqual(adsData[4].creationDate, "2019-11-06T11:21:46+0000")
             case .failure(let error): XCTFail("With error: \(error)")
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 }
 
 // MARK: - getSmallImage() tests
 
 extension AdNetworkManagerTestCase {
+
+    // MARK: Tests URL related errors
+
     func testGetSmallImage_WhenAdDataHasNotSmallImageURL_ShouldReturnAd_WithoutSmallImageData() {
         setUpFakes(data: nil, response: nil, error: nil)
         let adDataWithoutSmallImageURL: AdData = makeAdData(with: nil)
@@ -84,7 +79,7 @@ extension AdNetworkManagerTestCase {
             self.isAdPropertiesConformToExpectation(ad: ads[0])
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 
     func testGetSmallImage_WhenAdDataHasBrokenSmallImageURL_ShouldReturnAd_WithoutSmallImageData() {
@@ -96,20 +91,22 @@ extension AdNetworkManagerTestCase {
             isAdPropertiesConformToExpectation(ad: ads[0], expectedSmallImageURL: smallImageURLStr)
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 
     func testGetSmallImage_WhenSmallImageURLIsEmpty_ShouldReturnAd_WithoutSmallImageData() {
         setUpFakes(data: nil, response: nil, error: nil)
-        let adDataWithInvalidImageURL: AdData = makeAdData(with: "")
+        let adDataWithEmptyImageURL: AdData = makeAdData(with: "")
         let expectation = XCTestExpectation(description: "Wait for queue change.")
 
-        adNetworkManagerFake.getSmallImage(for: [adDataWithInvalidImageURL]) { [self] ads in
+        adNetworkManagerFake.getSmallImage(for: [adDataWithEmptyImageURL]) { [self] ads in
             isAdPropertiesConformToExpectation(ad: ads[0], expectedSmallImageURL: "")
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
+
+    // MARK: test Success
 
     func testGetSmallImage_WhenAdDataHasValidSmallImageURL_ShouldReturnAd_WithSmallImageData() {
         setUpFakes(data: FakeResponseData.dummyData, response: FakeResponseData.responseOK, error: nil)
@@ -124,7 +121,55 @@ extension AdNetworkManagerTestCase {
             )
             expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 0.02)
+    }
+
+    // MARK: Test DateFormatter error
+
+    func testGetSmallImage_WhenSessionHasData_ButAdDataDateIsWrongFormat_ShouldPostAdCallback_DatedAtDistantPast() {
+        setUpFakes(data: FakeResponseData.dummyData, response: FakeResponseData.responseOK, error: nil)
+        let adDataWithIncorrectDate: AdData = makeAdData(with: smallImageURLStr, date: "")
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+
+        adNetworkManagerFake.getSmallImage(for: [adDataWithIncorrectDate]) { ads in
+            XCTAssertEqual(ads[0].creationDate, Date.distantPast)
+            expectation.fulfill()
+        }
         wait(for: [expectation], timeout: 0.01)
+    }
+
+    // MARK: Test if ads are arranged
+
+    func testGetSmallImage_WhenPostAdsInCallback_ShouldBeArranged_ByEmmergencyAndCreationDate() {
+        setUpFakes(data: FakeResponseData.dummyData, response: FakeResponseData.responseOK, error: nil)
+        let adsUndecodedData: Data = FakeResponseData.generateData(for: "AdsDataForArrangeTest")!
+        var adsData: AdsData!
+        do {
+            adsData = try JSONDecoder().decode(AdsData.self, from: adsUndecodedData)
+        } catch let error {
+            XCTFail("Can not decode adsUndecodedData, with error: \(error)")
+        }
+
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+
+        adNetworkManagerFake.getSmallImage(for: adsData) { [self] ads in
+            XCTAssertTrue(ads[0].isUrgent)
+            XCTAssertEqual(ads[0].creationDate, dateFormatter.date(from: "2019-12-06T11:22:02+0000")!)
+
+            XCTAssertTrue(ads[1].isUrgent)
+            XCTAssertEqual(ads[1].creationDate, dateFormatter.date(from: "2019-04-06T11:21:48+0000")!)
+
+            XCTAssertFalse(ads[2].isUrgent)
+            XCTAssertEqual(ads[2].creationDate, dateFormatter.date(from: "2019-11-06T11:21:46+0000")!)
+
+            XCTAssertFalse(ads[3].isUrgent)
+            XCTAssertEqual(ads[3].creationDate, dateFormatter.date(from: "2019-10-11T12:18:39+0000")!)
+
+            XCTAssertFalse(ads[4].isUrgent)
+            XCTAssertEqual(ads[4].creationDate, dateFormatter.date(from: "2019-01-06T11:21:53+0000")!)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.02)
     }
 }
 
@@ -161,7 +206,7 @@ extension AdNetworkManagerTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 }
 
@@ -178,7 +223,7 @@ extension AdNetworkManagerTestCase {
             self.isAdPropertiesConformToExpectation(ad: adWithoutThumbImageURL)
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 
     func testGetThumbImage_WhenThumbImageURLStrIsEmpty_ShouldReturnAdWithoutThumbImageData() {
@@ -191,7 +236,7 @@ extension AdNetworkManagerTestCase {
             self.isAdPropertiesConformToExpectation(ad: adWithoutThumbImageURL, expectedThumbImageURL: "")
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 
     func testGetThumbImage_WhenThumbImageURLIsInvalid_ShouldReturnAdWithoutThumbImageData() {
@@ -207,7 +252,7 @@ extension AdNetworkManagerTestCase {
             )
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 
     func testGetThumbImage_WhenAdHasValidThumbImageURL_ShouldReturnAdWithThumbImageData() {
@@ -224,7 +269,7 @@ extension AdNetworkManagerTestCase {
             )
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 }
 
@@ -234,7 +279,7 @@ class AdNetworkManagerTestCase: XCTestCase {
 
     // MARK: Properties
 
-    static private let testDate: Date = {
+    private let testDate: Date = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return dateFormatter.date(from: "2019-11-05T15:56:55+0000")!
@@ -286,10 +331,10 @@ class AdNetworkManagerTestCase: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
 
-    private func makeAdData(with smallImageURLStr: String?) -> AdData {
+    private func makeAdData(with smallImageURLStr: String?, date: String = "2019-11-05T15:56:55+0000") -> AdData {
         return AdData(
             id: 1664493117,
             categoryID: 9,
@@ -297,7 +342,7 @@ class AdNetworkManagerTestCase: XCTestCase {
             description: descriptionStr,
             price: 25.00,
             imagesURL: ImagesURL(small: smallImageURLStr, thumb: nil),
-            creationDate: "2019-11-05T15:56:55+0000",
+            creationDate: date,
             isUrgent: false,
             siret: "123 323 002"
         )
@@ -305,7 +350,6 @@ class AdNetworkManagerTestCase: XCTestCase {
 
     private func isAdPropertiesConformToExpectation(
         ad: Ad,
-        expectedDate date: Date = testDate,
         expectedSmallImageURL smallImageURL: String? = nil,
         expectedSmallImageData smallImageData: Data? = nil,
         expectedThumbImageURL thumbImageURL: String? = nil,
@@ -314,7 +358,7 @@ class AdNetworkManagerTestCase: XCTestCase {
         XCTAssertEqual(ad.categoryID, 9)
         XCTAssertEqual(ad.id, 1664493117)
         XCTAssertEqual(ad.price, 25.00)
-        XCTAssertEqual(ad.creationDate, date)
+        XCTAssertEqual(ad.creationDate, testDate)
         XCTAssertEqual(ad.description, self.descriptionStr)
         XCTAssertEqual(ad.title, "Professeur natif d'espagnol à domicile")
         XCTAssertEqual(ad.isUrgent, false)
@@ -328,7 +372,7 @@ class AdNetworkManagerTestCase: XCTestCase {
     private func makeAd(with thumbImageURLStr: String?) -> Ad {
         return Ad(
             id: 1664493117,
-            creationDate: AdNetworkManagerTestCase.testDate,
+            creationDate: testDate,
             title: "Professeur natif d'espagnol à domicile",
             description: descriptionStr,
             categoryID: 9,

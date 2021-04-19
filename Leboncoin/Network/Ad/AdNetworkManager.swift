@@ -25,12 +25,26 @@ class AdNetworkManager {
         self.adCategoriesURLStr = adCategoriesURLStr
     }
 
-    /// Returns ads via callback, by fetching adsData from network and parsing them
-    func getAds(callback: @escaping (Result<Ads, NetworkError>) -> Void) {
-        getAdsData { result in
+    /// Returns via callback fetched adsData from the URL
+    func getAdsData(callback: @escaping (Result<AdsData, NetworkError>) -> Void) {
+        guard let adsURL = URL(string: adsURLStr) else {
+            return callback(.failure(.invalidURL))
+        }
+
+        // Try to get data from the adsDataURL
+        adNetworkService.getNetworkResponse(with: adsURL) { result in
             switch result {
-            case .failure(let networkError): callback(.failure(networkError))
-            case .success(let adsData): self.getSmallImage(for: adsData) { callback(.success($0.arrangeAds())) }
+
+            // In case of failure, we pass the error to AdCollectionViewController callback
+            case .failure(let error): callback(.failure(error))
+
+            // In case of success, we decode the data, then we pass the rate to AdCollectionViewController callback
+            case .success(let data):
+                guard let adsData = try? JSONDecoder().decode(AdsData.self, from: data) else {
+                    return callback(.failure(.canNotDecode))
+                }
+
+                callback(.success(adsData))
             }
         }
     }
@@ -68,7 +82,7 @@ class AdNetworkManager {
 
         // Once all fetchings are accomplished, we send the array of Ad via the callback
         fetchGroup.notify(queue: .main) {
-            callback(ads)
+            callback(ads.arrangeAds())
         }
     }
 
@@ -121,30 +135,6 @@ class AdNetworkManager {
     private var adCategoriesURLStr: String
 
     // MARK: Methods
-
-    /// Returns via callback fetched adsData from the URL
-    private func getAdsData(callback: @escaping (Result<AdsData, NetworkError>) -> Void) {
-        guard let adsURL = URL(string: adsURLStr) else {
-            return callback(.failure(.invalidURL))
-        }
-
-        // Try to get data from the adsDataURL
-        adNetworkService.getNetworkResponse(with: adsURL) { result in
-            switch result {
-
-            // In case of failure, we pass the error to AdCollectionViewController callback
-            case .failure(let error): callback(.failure(error))
-
-            // In case of success, we decode the data, then we pass the rate to AdCollectionViewController callback
-            case .success(let data):
-                guard let adsData = try? JSONDecoder().decode(AdsData.self, from: data) else {
-                    return callback(.failure(.canNotDecode))
-                }
-
-                callback(.success(adsData))
-            }
-        }
-    }
 
     private func getAdDate(from adData: AdData) -> Date {
         let dateFormatter = DateFormatter()

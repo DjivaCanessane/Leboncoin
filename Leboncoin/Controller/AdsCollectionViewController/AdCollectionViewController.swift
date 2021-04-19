@@ -78,11 +78,14 @@ class AdCollectionViewController: UIViewController {
 
     private func populateAds() {
         showActivityIndicatory()
-        adNetworkManager.getAds { result in
+        adNetworkManager.getAdsData { result in
             switch result {
             case .failure(let networkError): print(networkError)
-            case .success(let downloadedAds): self.ads = downloadedAds
-                self.collectionView.reloadData()
+            case .success(let downloadedAdsData):
+                self.adNetworkManager.getSmallImage(for: downloadedAdsData) { downloadedAds in
+                    self.ads = downloadedAds
+                    self.collectionView.reloadData()
+                }
             }
 
         }
