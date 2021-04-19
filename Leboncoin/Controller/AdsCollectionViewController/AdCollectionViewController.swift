@@ -25,10 +25,6 @@ class AdCollectionViewController: UIViewController {
         // UI
         setupViews()
         setupLayouts()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         title = "Annonces"
         navigationController?.navigationBar.topItem?.rightBarButtonItem = filterButton
     }
@@ -78,11 +74,13 @@ class AdCollectionViewController: UIViewController {
 
     private func populateAds() {
         showActivityIndicatory()
-        adNetworkManager.getAdsData { result in
+        adNetworkManager.getAdsData { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .failure(let networkError): print(networkError)
+            case .failure(let networkError): self.showErrorAlert(message: networkError.message)
             case .success(let downloadedAdsData):
-                self.adNetworkManager.getSmallImage(for: downloadedAdsData) { downloadedAds in
+                self.adNetworkManager.getSmallImage(for: downloadedAdsData) { [weak self] downloadedAds in
+                    guard let self = self else { return }
                     self.ads = downloadedAds
                     self.collectionView.reloadData()
                 }
@@ -92,10 +90,11 @@ class AdCollectionViewController: UIViewController {
     }
 
     private func populateAdCategoriesDict() {
-        adNetworkManager.getAdCategoriesDict { result in
+        adNetworkManager.getAdCategoriesDict { [weak self] result in
+            guard let self = self else { return }
             self.activityView.stopAnimating()
             switch result {
-            case .failure(let networkError): print(networkError)
+            case .failure(let networkError): self.showErrorAlert(message: networkError.message)
             case .success(let downloadedAdCategoriesDict):
                 self.adCategoriesDict = downloadedAdCategoriesDict
                 self.collectionView.reloadData()
@@ -131,6 +130,13 @@ class AdCollectionViewController: UIViewController {
             collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
+    }
+
+    func showErrorAlert(message: String) {
+        let alertVC = UIAlertController(title: "Erreur réseau", message: message, preferredStyle: .alert)
+        let action: UIAlertAction = UIAlertAction(title: "OK", style: .cancel)
+        alertVC.addAction(action)
+        present(alertVC, animated: true, completion: nil)
     }
 }
 

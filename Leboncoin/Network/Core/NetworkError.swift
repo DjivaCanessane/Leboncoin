@@ -15,7 +15,7 @@ enum NetworkError: Error {
     case canNotDecode
     case invalidURL
 
-    var msg: String {
+    var message: String {
         switch self {
         case .noData:
             return "Empty data."
