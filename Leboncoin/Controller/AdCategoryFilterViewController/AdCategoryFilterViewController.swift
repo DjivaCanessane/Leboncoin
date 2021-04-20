@@ -41,9 +41,10 @@ final class AdCategoryFilterViewController: UIViewController {
     // MARK: Methods
 
     private func setUpTableView() {
-
         view.addSubview(tableView)
-        tableView.frame = view.frame
+        tableView.frame = view.bounds
+        // EdgeInset for bottom, to show properly last cell
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
         tableView.delegate = adCategoryFilterDelegateHandler
         tableView.dataSource = adCategoryFilterDataSource
 

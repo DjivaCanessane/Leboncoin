@@ -228,8 +228,8 @@
 		18755599262617FD00D1CD7E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				18A93557262E4309006591C0 /* AdCategoryFilterViewController */,
 				181DE83D262A548E00C6A4F9 /* AdsCollectionViewController */,
+				18A93557262E4309006591C0 /* AdCategoryFilterViewController */,
 				181DE83E262A54A500C6A4F9 /* FilterdAdsTableView */,
 				181DE83F262A54C000C6A4F9 /* AdDetailViewController */,
 			);
