@@ -36,6 +36,8 @@
 		18A93561262E4720006591C0 /* LayoutConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93560262E4720006591C0 /* LayoutConstant.swift */; };
 		18A93569262E524D006591C0 /* FilteredAdTableViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93568262E524D006591C0 /* FilteredAdTableViewController+DataSource.swift */; };
 		18A9356D262E527A006591C0 /* FilteredAdTableViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A9356C262E527A006591C0 /* FilteredAdTableViewController+Delegate.swift */; };
+		18A93571262E537B006591C0 /* AdCategoryFilterViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93570262E537B006591C0 /* AdCategoryFilterViewController+DataSource.swift */; };
+		18A93575262E5388006591C0 /* AdCategoryFilterViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A93574262E5388006591C0 /* AdCategoryFilterViewController+Delegate.swift */; };
 		18FF199E262CDBAB007FB605 /* AdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF199D262CDBAB007FB605 /* AdTableViewCell.swift */; };
 		18FF19A4262CDC0B007FB605 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF19A3262CDC0B007FB605 /* ReusableView.swift */; };
 		18FF19DD262DF4FA007FB605 /* AdDetailCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF19DC262DF4FA007FB605 /* AdDetailCellProvider.swift */; };
@@ -86,6 +88,8 @@
 		18A93560262E4720006591C0 /* LayoutConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConstant.swift; sourceTree = "<group>"; };
 		18A93568262E524D006591C0 /* FilteredAdTableViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilteredAdTableViewController+DataSource.swift"; sourceTree = "<group>"; };
 		18A9356C262E527A006591C0 /* FilteredAdTableViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilteredAdTableViewController+Delegate.swift"; sourceTree = "<group>"; };
+		18A93570262E537B006591C0 /* AdCategoryFilterViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdCategoryFilterViewController+DataSource.swift"; sourceTree = "<group>"; };
+		18A93574262E5388006591C0 /* AdCategoryFilterViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdCategoryFilterViewController+Delegate.swift"; sourceTree = "<group>"; };
 		18FF199D262CDBAB007FB605 /* AdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdTableViewCell.swift; sourceTree = "<group>"; };
 		18FF19A3262CDC0B007FB605 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		18FF19DC262DF4FA007FB605 /* AdDetailCellProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailCellProvider.swift; sourceTree = "<group>"; };
@@ -308,6 +312,8 @@
 			isa = PBXGroup;
 			children = (
 				188682D3262B77F800FCF95E /* AdCategoryFilterViewController.swift */,
+				18A93570262E537B006591C0 /* AdCategoryFilterViewController+DataSource.swift */,
+				18A93574262E5388006591C0 /* AdCategoryFilterViewController+Delegate.swift */,
 			);
 			path = AdCategoryFilterViewController;
 			sourceTree = "<group>";
@@ -488,10 +494,12 @@
 				188682DE262B997900FCF95E /* AdDetailViewController.swift in Sources */,
 				187555652626177200D1CD7E /* SceneDelegate.swift in Sources */,
 				188682D4262B77F800FCF95E /* AdCategoryFilterViewController.swift in Sources */,
+				18A93575262E5388006591C0 /* AdCategoryFilterViewController+Delegate.swift in Sources */,
 				18FF199E262CDBAB007FB605 /* AdTableViewCell.swift in Sources */,
 				18A9355D262E4403006591C0 /* AdCollectionViewController+DataSource.swift in Sources */,
 				18A9356D262E527A006591C0 /* FilteredAdTableViewController+Delegate.swift in Sources */,
 				188682BE262B1AFB00FCF95E /* AdCollectionViewCell.swift in Sources */,
+				18A93571262E537B006591C0 /* AdCategoryFilterViewController+DataSource.swift in Sources */,
 				18A93559262E4335006591C0 /* AdCollectionViewController+Delegate.swift in Sources */,
 				18A93561262E4720006591C0 /* LayoutConstant.swift in Sources */,
 				18FF19A4262CDC0B007FB605 /* ReusableView.swift in Sources */,

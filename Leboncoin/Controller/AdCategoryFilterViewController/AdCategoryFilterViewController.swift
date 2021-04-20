@@ -21,7 +21,7 @@ class AdCategoryFilterViewController: UIViewController {
     var ads: Ads = []
     weak var delegate: AdCategoryFilterViewDelegate?
 
-    // MARK: LifeCycle methods
+    // MARK: Lifecycle methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +32,13 @@ class AdCategoryFilterViewController: UIViewController {
             target: self,
             action: #selector(dismissModal)
         )
-        navigationController?.navigationBar.topItem?.title = navigationTitle
+        navigationController?.navigationBar.topItem?.title = "Catégories"
         navigationController?.navigationBar.topItem?.rightBarButtonItem = dismissButton
     }
 
     // MARK: Methods
 
     // MARK: - PRIVATE
-
-    private let navigationTitle: String = "Catégories"
 
     // MARK: Properties
 
@@ -61,41 +59,5 @@ class AdCategoryFilterViewController: UIViewController {
     @objc
     private func dismissModal() {
         navigationController?.dismiss(animated: true)
-    }
-}
-
-extension AdCategoryFilterViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCategoryID: Int = indexPath.row + 1
-        let selectedCategoryName: String = adCategoriesDict[selectedCategoryID] ?? "Inconnu"
-        let filteredAds: Ads = ads.filter(categoryID: selectedCategoryID)
-
-        let filteredAdTableViewController: FilteredAdTableViewController = FilteredAdTableViewController()
-        filteredAdTableViewController.filteredAds = filteredAds
-        filteredAdTableViewController.adCategoriesName = selectedCategoryName
-
-        navigationController?.dismiss(animated: true) { [self] in
-            delegate?.pushWhenModalIsDismissed(filteredAdTableViewController: filteredAdTableViewController)
-        }
-    }
-}
-
-extension AdCategoryFilterViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return adCategoriesDict.count
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableViewCell: UITableViewCell = UITableViewCell()
-        tableViewCell.textLabel?.font = .boldSystemFont(ofSize: 18)
-        tableViewCell.textLabel?.textColor = .darkGray
-        tableViewCell.textLabel?.text = adCategoriesDict[indexPath.row + 1]
-        tableViewCell.accessoryType = .disclosureIndicator
-        return tableViewCell
     }
 }

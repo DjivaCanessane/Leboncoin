@@ -130,7 +130,6 @@ class AdDetailCellProvider {
         siretStackView.axis = .horizontal
         siretStackView.distribution = .equalSpacing
         siretStackView.alignment = .leading
-        siretStackView.spacing = 30
 
         contentView.addSubview(siretStackView)
         siretStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -178,7 +177,6 @@ class AdDetailCellProvider {
         urgentStackView.axis = .horizontal
         urgentStackView.distribution = .fillProportionally
         urgentStackView.alignment = .leading
-        urgentStackView.spacing = 30
 
         contentView.addSubview(urgentStackView)
         urgentStackView.translatesAutoresizingMaskIntoConstraints = false
