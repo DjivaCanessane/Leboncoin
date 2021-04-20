@@ -11,6 +11,11 @@ class AdCollectionDelegateHandler: NSObject, UICollectionViewDelegateFlowLayout 
 
     // MARK: - INTERNAL
 
+    // MARK: Properties
+
+    var ads: Ads
+    var adCategoriesDict: AdCategoriesDict
+
     // MARK: Lifecycle methods
 
     init(
@@ -82,7 +87,5 @@ class AdCollectionDelegateHandler: NSObject, UICollectionViewDelegateFlowLayout 
 
     private let spacing: CGFloat = 16
     private let screenWidth: CGFloat
-    private let ads: Ads
-    private let adCategoriesDict: AdCategoriesDict
     private let navigationController: UINavigationController?
 }

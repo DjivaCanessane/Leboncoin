@@ -1,23 +1,23 @@
 //
-//  AdDetailViewController+DataSource.swift
+//  AdDetailDelegateHandler.swift
 //  Leboncoin
 //
-//  Created by Djiveradjane Canessane on 19/04/2021.
+//  Created by Djiveradjane Canessane on 20/04/2021.
 //
 
 import UIKit
 
-extension AdDetailViewController: UITableViewDataSource {
+class AdDetailDelegateHandler: NSObject, UITableViewDelegate {
 
-    // MARK: - Section methods
+    // MARK: - INTERNAL
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return AdDetailSection.allCases.count
+    // MARK: Lifecycle methods
+
+    init(screenWidth: CGFloat) {
+        self.screenWidth = screenWidth
     }
 
-    func tableView(_ tableView: UITableView, numberOFRowInSection section: Int) -> Int {
-        return 1
-    }
+    // MARK: Methods
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView: UIView = UIView()
@@ -55,33 +55,20 @@ extension AdDetailViewController: UITableViewDataSource {
         }
     }
 
-    // MARK: - Row methods
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let adDetailSection = AdDetailSection(rawValue: indexPath.section) else { return .zero }
 
         switch adDetailSection {
-        case .thumbImage: return view.bounds.width
+        case .thumbImage: return screenWidth
         case .essantialsDetails: return 160
         case .category: return 30
         case .description: return 100
         }
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let adDetailSection = AdDetailSection(rawValue: indexPath.section) else { return UITableViewCell() }
-        switch adDetailSection {
-        case .thumbImage: return adDetailCellProvider.getThumbImageCell(
-            adForThumbImage: ad,
-            width: view.bounds.width
-        )
-        case .essantialsDetails: return adDetailCellProvider.getEssentialDetailsCell()
-        case .category: return adDetailCellProvider.getCategoryCell()
-        case .description: return adDetailCellProvider.getDescriptionCell()
-        }
-    }
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let screenWidth: CGFloat
 }

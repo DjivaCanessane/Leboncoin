@@ -101,6 +101,7 @@ class AdCollectionViewController: UIViewController {
                     guard let self = self else { return }
                     self.ads = downloadedAds
                     self.adCollectionDataSource.ads = downloadedAds
+                    self.adCollectionDelegateHandler.ads = downloadedAds
                     self.collectionView.reloadData()
                 }
             }
@@ -116,6 +117,7 @@ class AdCollectionViewController: UIViewController {
             case .success(let downloadedAdCategoriesDict):
                 self.adCategoriesDict = downloadedAdCategoriesDict
                 self.adCollectionDataSource.adCategoriesDict = downloadedAdCategoriesDict
+                self.adCollectionDelegateHandler.adCategoriesDict = downloadedAdCategoriesDict
                 self.collectionView.reloadData()
             }
         }
