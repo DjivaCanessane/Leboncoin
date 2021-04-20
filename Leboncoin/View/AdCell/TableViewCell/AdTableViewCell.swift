@@ -32,6 +32,7 @@ final class AdTableViewCell: UITableViewCell {
 
     private let adImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
         return imageView
