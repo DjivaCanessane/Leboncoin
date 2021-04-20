@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdDetailViewController: UIViewController {
+final class AdDetailViewController: UIViewController {
 
     // MARK: - INTERNAL
 
@@ -62,5 +62,4 @@ class AdDetailViewController: UIViewController {
         // To avoid unnecessary tableView's sepators
         tableView.tableFooterView = UIView()
     }
-
 }

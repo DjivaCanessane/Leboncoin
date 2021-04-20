@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AdNetworkManager {
+final class AdNetworkManager {
     static let shared: AdNetworkManager = AdNetworkManager()
 
     // MARK: - INTERNAL
@@ -130,9 +130,9 @@ class AdNetworkManager {
 
     // MARK: Properties
 
-    private var adNetworkService: NetworkService = NetworkService()
-    private var adsURLStr: String
-    private var adCategoriesURLStr: String
+    private let adNetworkService: NetworkService
+    private let adsURLStr: String
+    private let adCategoriesURLStr: String
 
     // MARK: Methods
 

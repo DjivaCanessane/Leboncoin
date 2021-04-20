@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FilteredAdTableViewController: UIViewController {
+final class FilteredAdTableViewController: UIViewController {
 
     // MARK: - INTERNAL
 

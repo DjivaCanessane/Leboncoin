@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdDetailDelegateHandler: NSObject, UITableViewDelegate {
+final class AdDetailDelegateHandler: NSObject, UITableViewDelegate {
 
     // MARK: - INTERNAL
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FilteredAdTableDelegateHandler: NSObject, UITableViewDelegate {
+final class FilteredAdTableDelegateHandler: NSObject, UITableViewDelegate {
 
     // MARK: - INTERNAL
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdCollectionDelegateHandler: NSObject, UICollectionViewDelegateFlowLayout {
+final class AdCollectionDelegateHandler: NSObject, UICollectionViewDelegateFlowLayout {
 
     // MARK: - INTERNAL
 

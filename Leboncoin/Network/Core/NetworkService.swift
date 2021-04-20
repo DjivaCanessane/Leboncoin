@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkService {
+final class NetworkService {
 
     // MARK: - INTERNAL
 
@@ -22,7 +22,7 @@ class NetworkService {
     func getNetworkResponse(with targetURL: URL, callback: @escaping (Result<Data, NetworkError>) -> Void) {
 
         // Avoid parallel network calls
-        var task: URLSessionDataTask?
+        let task: URLSessionDataTask?
         task = networkSession.dataTask(with: targetURL) { (data, response, error) in
 
             // Putting code execution in main thread to ensure coordianation with UI
@@ -60,5 +60,5 @@ class NetworkService {
 
     // MARK: Properties
 
-    private var networkSession: URLSession
+    private let networkSession: URLSession
 }

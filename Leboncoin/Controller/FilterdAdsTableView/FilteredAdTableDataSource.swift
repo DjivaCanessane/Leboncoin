@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FilteredAdTableDataSource: NSObject, UITableViewDataSource {
+final class FilteredAdTableDataSource: NSObject, UITableViewDataSource {
 
     // MARK: - INTERNAL
 

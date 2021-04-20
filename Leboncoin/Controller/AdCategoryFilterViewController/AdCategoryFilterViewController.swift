@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdCategoryFilterViewController: UIViewController {
+final class AdCategoryFilterViewController: UIViewController {
 
     // MARK: - INTERNAL
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdCategoryFilterDataSource: NSObject, UITableViewDataSource {
+final class AdCategoryFilterDataSource: NSObject, UITableViewDataSource {
 
     // MARK: - INTERNAL
 
@@ -36,5 +36,5 @@ class AdCategoryFilterDataSource: NSObject, UITableViewDataSource {
 
     // MARK: Properties
 
-    private var adCategoriesDict: AdCategoriesDict
+    private let adCategoriesDict: AdCategoriesDict
 }

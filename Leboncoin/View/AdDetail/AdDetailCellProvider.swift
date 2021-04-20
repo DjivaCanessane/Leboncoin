@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdDetailCellProvider {
+final class AdDetailCellProvider {
 
     // MARK: - INTERNAL
 

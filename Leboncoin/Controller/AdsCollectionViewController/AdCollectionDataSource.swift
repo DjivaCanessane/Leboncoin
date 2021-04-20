@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdCollectionDataSource: NSObject, UICollectionViewDataSource {
+final class AdCollectionDataSource: NSObject, UICollectionViewDataSource {
 
     // MARK: - INTERNAL
 

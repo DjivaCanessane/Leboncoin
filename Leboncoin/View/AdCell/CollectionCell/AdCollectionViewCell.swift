@@ -143,6 +143,5 @@ final class AdCollectionViewCell: UICollectionViewCell {
 extension AdCollectionViewCell: ReusableView {
     static var identifier: String {
         return String(describing: self)
-
     }
 }

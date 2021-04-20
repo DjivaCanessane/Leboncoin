@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdCollectionViewController: UIViewController {
+final class AdCollectionViewController: UIViewController {
 
     // MARK: - INTERNAL
 
@@ -35,10 +35,10 @@ class AdCollectionViewController: UIViewController {
     // MARK: Properties
 
     private let adNetworkManager: AdNetworkManager = AdNetworkManager.shared
-    private let activityView = UIActivityIndicatorView(style: .large)
+    private let activityView = UIActivityIndicatorView()
 
     private lazy var filterButton: UIBarButtonItem = UIBarButtonItem(
-        image: UIImage(systemName: "line.horizontal.3.decrease.circle"),
+        image: UIImage(named: "filter-icon"),
         style: .plain,
         target: self,
         action: #selector(presentAdCategoriesModally)
@@ -85,7 +85,7 @@ class AdCollectionViewController: UIViewController {
         )
         adCategoryFilterViewController.adCategoryFilterDelegateHandler.delegate = self
         adCategoryFilterViewController.adCategoriesDict = adCategoriesDict
-        adCategoryFilterViewController.modalPresentationStyle = .automatic
+        adCategoryFilterViewController.modalPresentationStyle = .overCurrentContext
 
         present(UINavigationController(rootViewController: adCategoryFilterViewController), animated: true)
     }
@@ -126,7 +126,7 @@ class AdCollectionViewController: UIViewController {
     private func showActivityIndicatory() {
         activityView.center = view.center
         activityView.color = .darkGray
-        activityView.style = .large
+        activityView.style = .gray
         view.addSubview(activityView)
         activityView.startAnimating()
     }

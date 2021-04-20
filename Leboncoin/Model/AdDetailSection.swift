@@ -32,5 +32,4 @@ enum AdDetailSection: Int, CaseIterable, DisplayHeader {
         case .description: return true
         }
     }
-
 }

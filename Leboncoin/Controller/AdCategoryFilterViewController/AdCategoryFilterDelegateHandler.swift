@@ -11,7 +11,7 @@ protocol AdCategoryFilterViewDelegate: AnyObject {
     func pushWhenModalIsDismissed(filteredAdTableViewController: FilteredAdTableViewController)
 }
 
-class AdCategoryFilterDelegateHandler: NSObject, UITableViewDelegate {
+final class AdCategoryFilterDelegateHandler: NSObject, UITableViewDelegate {
 
     // MARK: - INTERNAL
 

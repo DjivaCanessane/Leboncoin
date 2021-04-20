@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdDetailDataSource: NSObject, UITableViewDataSource {
+final class AdDetailDataSource: NSObject, UITableViewDataSource {
 
     // MARK: - INTERNAL
 
@@ -58,5 +58,4 @@ class AdDetailDataSource: NSObject, UITableViewDataSource {
 
     private let screenWidth: CGFloat
     private let adDetailCellProvider: AdDetailCellProvider
-
 }
