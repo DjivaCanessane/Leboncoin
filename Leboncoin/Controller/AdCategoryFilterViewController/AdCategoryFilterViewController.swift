@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol AdCategoryFilterViewDelegate: AnyObject {
-    func pushWhenModalIsDismissed(filteredAdTableViewController: FilteredAdTableViewController)
-}
-
 class AdCategoryFilterViewController: UIViewController {
 
     // MARK: - INTERNAL
@@ -18,15 +14,13 @@ class AdCategoryFilterViewController: UIViewController {
     // MARK: Properties
 
     var adCategoriesDict: AdCategoriesDict = [:]
-    var ads: Ads = []
-    weak var delegate: AdCategoryFilterViewDelegate?
+    var adCategoryFilterDelegateHandler: AdCategoryFilterDelegateHandler!
 
     // MARK: Lifecycle methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-
         let dismissButton: UIBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
@@ -41,14 +35,16 @@ class AdCategoryFilterViewController: UIViewController {
     // MARK: Properties
 
     private let tableView: UITableView = UITableView()
+    private lazy var adCategoryFilterDataSource: AdCategoryFilterDataSource =
+        AdCategoryFilterDataSource(adCategoriesDict: adCategoriesDict)
 
     // MARK: Methods
 
     private func setUpTableView() {
         view.addSubview(tableView)
         tableView.frame = view.frame
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableView.delegate = adCategoryFilterDelegateHandler
+        tableView.dataSource = adCategoryFilterDataSource
 
         tableView.backgroundColor = .white
         tableView.tableFooterView = UIView()

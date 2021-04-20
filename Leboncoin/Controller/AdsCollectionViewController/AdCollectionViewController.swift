@@ -80,9 +80,13 @@ class AdCollectionViewController: UIViewController {
     @objc
     private func presentAdCategoriesModally() {
         let adCategoryFilterViewController = AdCategoryFilterViewController()
-        adCategoryFilterViewController.delegate = self
+        adCategoryFilterViewController.adCategoryFilterDelegateHandler = AdCategoryFilterDelegateHandler(
+            adCategoriesDict: adCategoriesDict,
+            ads: ads,
+            navigationController: navigationController
+        )
+        adCategoryFilterViewController.adCategoryFilterDelegateHandler.delegate = self
         adCategoryFilterViewController.adCategoriesDict = adCategoriesDict
-        adCategoryFilterViewController.ads = ads
         adCategoryFilterViewController.modalPresentationStyle = .automatic
 
         present(UINavigationController(rootViewController: adCategoryFilterViewController), animated: true)

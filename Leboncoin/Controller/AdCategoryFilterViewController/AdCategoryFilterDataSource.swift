@@ -1,5 +1,5 @@
 //
-//  AdCategoryFilterViewController+DataSource.swift
+//  AdCategoryFilterDataSource.swift
 //  Leboncoin
 //
 //  Created by Djiveradjane Canessane on 20/04/2021.
@@ -7,7 +7,18 @@
 
 import UIKit
 
-extension AdCategoryFilterViewController: UITableViewDataSource {
+class AdCategoryFilterDataSource: NSObject, UITableViewDataSource {
+
+    // MARK: - INTERNAL
+
+    // MARK: Lifecycle methods
+
+    init(adCategoriesDict: AdCategoriesDict) {
+        self.adCategoriesDict = adCategoriesDict
+    }
+
+    // MARK: Methods
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return adCategoriesDict.count
     }
@@ -24,4 +35,10 @@ extension AdCategoryFilterViewController: UITableViewDataSource {
         tableViewCell.accessoryType = .disclosureIndicator
         return tableViewCell
     }
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private var adCategoriesDict: AdCategoriesDict
 }
