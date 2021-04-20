@@ -1,5 +1,5 @@
 //  swiftlint:disable identifier_name
-//  AdCollectionViewController+DataSource.swift
+//  AdCollectionDataSource.swift
 //  Leboncoin
 //
 //  Created by Djiveradjane Canessane on 20/04/2021.
@@ -7,7 +7,23 @@
 
 import UIKit
 
-extension AdCollectionViewController: UICollectionViewDataSource {
+class AdCollectionDataSource: NSObject, UICollectionViewDataSource {
+
+    // MARK: - INTERNAL
+
+    // MARK: Properties
+
+    var ads: Ads
+    var adCategoriesDict: AdCategoriesDict
+
+    // MARK: Lifecycle methods
+
+    init(ads: Ads, adCategoriesDict: AdCategoriesDict) {
+        self.ads = ads
+        self.adCategoriesDict = adCategoriesDict
+    }
+
+    // MARK: Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ads.count
     }
@@ -26,5 +42,4 @@ extension AdCollectionViewController: UICollectionViewDataSource {
         collectionCell.setup(with: ad, adCategoryStr: adCategoryStr)
         return collectionCell
     }
-
 }

@@ -13,7 +13,6 @@ class AdCollectionViewController: UIViewController {
 
     // MARK: Properties
 
-    let spacing: CGFloat = 16
     var ads: Ads = []
     var adCategoriesDict: AdCategoriesDict = [:]
 
@@ -60,15 +59,14 @@ class AdCollectionViewController: UIViewController {
         navigationController?.navigationBar.topItem?.rightBarButtonItem = filterButton
         view.addSubview(collectionView)
 
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView.dataSource = adCollectionDataSource
+        collectionView.delegate = adCollectionDelegateHandler
         collectionView.register(AdCollectionViewCell.self, forCellWithReuseIdentifier: AdCollectionViewCell.identifier)
     }
 
     private func setupLayouts() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
-        // Layout constraints for `collectionView`
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -102,6 +100,7 @@ class AdCollectionViewController: UIViewController {
                 self.adNetworkManager.getSmallImage(for: downloadedAdsData) { [weak self] downloadedAds in
                     guard let self = self else { return }
                     self.ads = downloadedAds
+                    self.adCollectionDataSource.ads = downloadedAds
                     self.collectionView.reloadData()
                 }
             }
@@ -116,6 +115,7 @@ class AdCollectionViewController: UIViewController {
             case .failure(let networkError): self.showErrorAlert(message: networkError.message)
             case .success(let downloadedAdCategoriesDict):
                 self.adCategoriesDict = downloadedAdCategoriesDict
+                self.adCollectionDataSource.adCategoriesDict = downloadedAdCategoriesDict
                 self.collectionView.reloadData()
             }
         }
@@ -135,6 +135,22 @@ class AdCollectionViewController: UIViewController {
         alertVC.addAction(action)
         present(alertVC, animated: true)
     }
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private lazy var adCollectionDelegateHandler: AdCollectionDelegateHandler = AdCollectionDelegateHandler(
+        screenWidth: view.bounds.width,
+        ads: ads,
+        adCategoriesDict: adCategoriesDict,
+        navigationController: navigationController
+    )
+
+    private lazy var adCollectionDataSource: AdCollectionDataSource = AdCollectionDataSource(
+        ads: ads,
+        adCategoriesDict: adCategoriesDict
+    )
 }
 
 extension AdCollectionViewController: AdCategoryFilterViewDelegate {

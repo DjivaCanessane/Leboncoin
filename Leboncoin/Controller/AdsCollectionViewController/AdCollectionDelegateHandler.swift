@@ -1,5 +1,5 @@
 //  swiftlint:disable identifier_name
-//  AdCollectionViewController+Delegate.swift
+//  AdCollectionDelegateHandler.swift
 //  Leboncoin
 //
 //  Created by Djiveradjane Canessane on 20/04/2021.
@@ -7,7 +7,25 @@
 
 import UIKit
 
-extension AdCollectionViewController: UICollectionViewDelegateFlowLayout {
+class AdCollectionDelegateHandler: NSObject, UICollectionViewDelegateFlowLayout {
+
+    // MARK: - INTERNAL
+
+    // MARK: Lifecycle methods
+
+    init(
+        screenWidth: CGFloat,
+        ads: Ads,
+        adCategoriesDict: AdCategoriesDict,
+        navigationController: UINavigationController?
+    ) {
+        self.screenWidth = screenWidth
+        self.ads = ads
+        self.adCategoriesDict = adCategoriesDict
+        self.navigationController = navigationController
+    }
+
+    // MARK: Methods
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -15,7 +33,7 @@ extension AdCollectionViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
 
-        let width = (view.frame.width / 2) - (spacing * 2)
+        let width = (screenWidth / 2) - (spacing * 2)
 
         return CGSize(width: width, height: width * 2)
     }
@@ -57,4 +75,14 @@ extension AdCollectionViewController: UICollectionViewDelegateFlowLayout {
             AdDetailCellProvider(ad: ad, adCategoryName: adCategoriesDict[ad.categoryID] ?? "Inconnu")
         navigationController?.pushViewController(adDetailViewController, animated: true)
     }
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let spacing: CGFloat = 16
+    private let screenWidth: CGFloat
+    private let ads: Ads
+    private let adCategoriesDict: AdCategoriesDict
+    private let navigationController: UINavigationController?
 }
