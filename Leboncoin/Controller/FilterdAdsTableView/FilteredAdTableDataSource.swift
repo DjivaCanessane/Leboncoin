@@ -1,5 +1,5 @@
 //  swiftlint:disable identifier_name
-//  FilteredAdTableViewController+DataSource.swift
+//  FilteredAdTableDataSource.swift
 //  Leboncoin
 //
 //  Created by Djiveradjane Canessane on 20/04/2021.
@@ -7,14 +7,20 @@
 
 import UIKit
 
-extension FilteredAdTableViewController: UITableViewDataSource {
+class FilteredAdTableDataSource: NSObject, UITableViewDataSource {
+
+    // MARK: - INTERNAL
+
+    // MARK: Lifecycle methods
+
+    init(filteredAds: Ads) {
+        self.filteredAds = filteredAds
+    }
+
+    // MARK: Methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredAds.count
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -27,4 +33,10 @@ extension FilteredAdTableViewController: UITableViewDataSource {
         tableViewCell.setup(with: ad)
         return tableViewCell
     }
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let filteredAds: Ads
 }

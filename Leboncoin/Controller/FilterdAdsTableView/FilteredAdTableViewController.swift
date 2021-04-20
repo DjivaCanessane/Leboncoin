@@ -30,13 +30,22 @@ class FilteredAdTableViewController: UIViewController {
 
     private let tableView: UITableView = UITableView()
 
+    private lazy var filteredAdTableDataSource: FilteredAdTableDataSource =
+        FilteredAdTableDataSource(filteredAds: filteredAds)
+
+    private lazy var filteredAdTableDelegateHandler: FilteredAdTableDelegateHandler = FilteredAdTableDelegateHandler(
+        filteredAds: filteredAds,
+        adCategoriesName: adCategoriesName,
+        navigationController: navigationController
+    )
+
     // MARK: Methods
 
     private func setUpTableView() {
         view.addSubview(tableView)
         tableView.frame = view.frame
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableView.delegate = filteredAdTableDelegateHandler
+        tableView.dataSource = filteredAdTableDataSource
 
         tableView.backgroundColor = .white
         tableView.register(AdTableViewCell.self, forCellReuseIdentifier: AdTableViewCell.identifier)

@@ -41,6 +41,7 @@ class AdCategoryFilterViewController: UIViewController {
     // MARK: Methods
 
     private func setUpTableView() {
+
         view.addSubview(tableView)
         tableView.frame = view.frame
         tableView.delegate = adCategoryFilterDelegateHandler

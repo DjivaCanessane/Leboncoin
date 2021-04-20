@@ -23,10 +23,6 @@ class AdCategoryFilterDataSource: NSObject, UITableViewDataSource {
         return adCategoriesDict.count
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableViewCell: UITableViewCell = UITableViewCell()
         tableViewCell.textLabel?.font = .boldSystemFont(ofSize: 18)
