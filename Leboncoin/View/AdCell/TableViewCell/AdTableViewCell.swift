@@ -78,8 +78,7 @@ final class AdTableViewCell: UITableViewCell {
 
     private func setupLayouts() {
         addAdImageView()
-        addTitleLabel()
-        addPriceLabel()
+        addLabelStack()
         if isUrgent { addUrgentLabel() }
     }
 
@@ -95,23 +94,20 @@ final class AdTableViewCell: UITableViewCell {
         ])
     }
 
-    private func addTitleLabel() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func addLabelStack() {
+        let labelStack = UIStackView(arrangedSubviews: [titleLabel, priceLabel])
+        labelStack.axis = .vertical
+        labelStack.distribution = .fillProportionally
+        labelStack.alignment = .leading
+        labelStack.spacing = LayoutConstant.verticalPadding
+
+        contentView.addSubview(labelStack)
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalPadding)
-        ])
-    }
-
-    private func addPriceLabel() {
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            priceLabel.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
-            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: LayoutConstant.verticalPadding)
+            labelStack.leadingAnchor.constraint(equalTo: adImageView.trailingAnchor, constant: LayoutConstant.horizontalPadding),
+            labelStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            labelStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
 

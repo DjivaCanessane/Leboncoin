@@ -90,9 +90,7 @@ final class AdCollectionViewCell: UICollectionViewCell {
 
     private func setupLayouts() {
         addAdImageView()
-        addTitleLabel()
-        addPriceLabel()
-        addCategoryLabel()
+        addLabelStack()
         if isUrgent { addUrgentLabel() }
     }
 
@@ -108,34 +106,25 @@ final class AdCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    private func addTitleLabel() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func addLabelStack() {
+        let priceCategoryStack = UIStackView(arrangedSubviews: [priceLabel, categoryLabel])
+        priceCategoryStack.axis = .vertical
+        priceCategoryStack.distribution = .equalCentering
+        priceCategoryStack.alignment = .leading
+
+        let labelStack = UIStackView(arrangedSubviews: [titleLabel, priceCategoryStack])
+        labelStack.axis = .vertical
+        labelStack.distribution = .equalSpacing
+        labelStack.alignment = .leading
+
+        contentView.addSubview(labelStack)
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            titleLabel.topAnchor.constraint(equalTo: adImageView.bottomAnchor, constant: LayoutConstant.verticalPadding)
-        ])
-    }
-
-    private func addPriceLabel() {
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
-        ])
-    }
-
-    private func addCategoryLabel() {
-        categoryLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
-            categoryLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
-            categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalPadding)
+            labelStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            labelStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.horizontalPadding),
+            labelStack.topAnchor.constraint(equalTo: adImageView.bottomAnchor, constant: LayoutConstant.verticalPadding),
+            labelStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstant.verticalPadding)
         ])
     }
 
@@ -144,8 +133,8 @@ final class AdCollectionViewCell: UICollectionViewCell {
         urgentLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            urgentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8)
+            urgentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstant.verticalPadding),
+            urgentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: LayoutConstant.verticalPadding)
         ])
     }
     //swiftlint:enable line_lenght

@@ -36,8 +36,6 @@ class AdCategoryFilterViewController: UIViewController {
         navigationController?.navigationBar.topItem?.rightBarButtonItem = dismissButton
     }
 
-    // MARK: Methods
-
     // MARK: - PRIVATE
 
     // MARK: Properties

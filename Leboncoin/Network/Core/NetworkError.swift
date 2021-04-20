@@ -17,18 +17,12 @@ enum NetworkError: Error {
 
     var message: String {
         switch self {
-        case .noData:
-            return "Empty data."
-        case .hasError:
-            return "Contains an error."
-        case .responseIsWrongType:
-            return "Response format is other than HTTP."
-        case .wrongStatusCode:
-            return "Response's status code is not 200."
-        case .canNotDecode:
-            return "Error when decoding .json."
-        case .invalidURL:
-            return "Invalid data URL."
+        case .noData: return "Aucune donnée."
+        case .hasError: return "vérifier votre connexion internet."
+        case .responseIsWrongType: return "La réponse réseau est illisible."
+        case .wrongStatusCode: return "Le code de la réponse réseau est différent de 200."
+        case .canNotDecode: return "Impossible de décoder les données."
+        case .invalidURL: return "URL invalide."
         }
     }
 }
