@@ -48,7 +48,7 @@ final class NetworkService {
                     return callback(.failure(.noData))
                 }
 
-                // Finally, if all conditions passed, we send data wia the callback
+                // Finally, if all conditions passed, we send data via the callback
                 callback(.success(data))
 
             }
